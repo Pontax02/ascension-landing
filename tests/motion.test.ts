@@ -132,3 +132,40 @@ describe('movimiento: componentes', () => {
     expect((notFound.match(/class="[^"]*\benter\b/g) ?? []).length).toBeGreaterThanOrEqual(3);
   });
 });
+
+describe('movimiento: hover', () => {
+  const hoverDecls = (sel: RegExp) => decls.filter((d) => /:hover/.test(selectorOf(d)) && sel.test(selectorOf(d)));
+  const lifts = (sel: RegExp) => hoverDecls(sel).filter((d) => d.prop === 'translate');
+
+  // Las tarjetas ya animan `transform` al revelarse (con fill: both); el hover usa la propiedad
+  // independiente `translate` para no pelear con esa animación.
+  it.each([
+    ['tarjetas de pilares', /\.pillar\b/],
+    ['etapas del avatar', /\.stage\b/],
+    ['capturas (móvil)', /\.phone\b/],
+    ['badge de Google Play', /\.play-badge/],
+  ])('%s se elevan al pasar el ratón', (_, sel) => {
+    expect(lifts(sel).length).toBeGreaterThan(0);
+  });
+
+  it('el movimiento en hover desaparece con "reducir movimiento"', () => {
+    const moving = decls.filter((d) => /:hover/.test(selectorOf(d)) && /^(transform|translate|scale|rotate)$/.test(d.prop));
+    expect(moving.length).toBeGreaterThan(0);
+    const bad = moving.filter((d) => !inAtRule(d, 'media', /prefers-reduced-motion:\s*no-preference/));
+    expect(bad.map(where)).toEqual([]);
+  });
+
+  it('la sombra de la tarjeta se refuerza animando opacidad, no box-shadow', () => {
+    const bad = decls.filter((d) => /^transition(-property)?$/.test(d.prop) && /box-shadow/.test(d.value));
+    expect(bad.map(where)).toEqual([]);
+    expect(hoverDecls(/\.pillar\b.*::?after/).some((d) => d.prop === 'opacity')).toBe(true);
+  });
+
+  it('los enlaces del pie se vuelven dorados al pasar el ratón', () => {
+    expect(hoverDecls(/site-footer/).some((d) => d.prop === 'text-decoration-color' && /gold/.test(d.value))).toBe(true);
+  });
+
+  it('los botones de la 404 cambian de fondo al pasar el ratón', () => {
+    expect(hoverDecls(/not-found__btn/).some((d) => /^background(-color)?$/.test(d.prop))).toBe(true);
+  });
+});
