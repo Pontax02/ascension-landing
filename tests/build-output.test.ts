@@ -108,4 +108,17 @@ describe('tipografías autoalojadas', () => {
   it('precarga al menos una fuente woff2', () => {
     expect(home()).toMatch(/<link[^>]+rel="preload"[^>]+as="font"/);
   });
+
+  // Regresión medida en el paso 6: Sora 600 sin precargar producía CLS 0.07 en el hero.
+  it('precarga todas las fuentes que declara (evita saltos de layout)', () => {
+    const declared = new Set([...home().matchAll(/url\("?([^")]+\.woff2)"?\)/g)].map((m) => m[1]));
+    const preloaded = new Set([...home().matchAll(/rel="preload" href="([^"]+\.woff2)"/g)].map((m) => m[1]));
+    expect(declared.size).toBeGreaterThan(0);
+    expect(preloaded).toEqual(declared);
+  });
+
+  // Regresión medida en el paso 6: dos hojas CSS externas bloqueaban el primer render ~600 ms en 4G.
+  it('no carga hojas de estilo externas (el CSS va incrustado)', () => {
+    expect(home()).not.toMatch(/<link[^>]+rel="stylesheet"/);
+  });
 });

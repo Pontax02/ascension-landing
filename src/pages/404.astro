@@ -1,0 +1,75 @@
+---
+// GitHub Pages sirve este fichero para cualquier ruta inexistente, en cualquier idioma:
+// por eso el contenido va en español e inglés.
+import { localePath, useTranslations } from '../i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const es = useTranslations('es');
+const en = useTranslations('en');
+---
+
+<BaseLayout title={`${es('notFound.title')} — Ascension`} description={es('notFound.body')} noindex>
+	<section class="container not-found">
+		<p class="not-found__code" aria-hidden="true">404</p>
+		<h1>{es('notFound.title')}</h1>
+		<p>{es('notFound.body')}</p>
+		<p lang="en">{en('notFound.body')}</p>
+		<ul role="list">
+			<li><a href={localePath('es', '/')}>{es('notFound.home')}</a></li>
+			<li lang="en"><a href={localePath('en', '/')}>{en('notFound.home')}</a></li>
+		</ul>
+	</section>
+</BaseLayout>
+
+<style>
+	.not-found {
+		display: grid;
+		justify-items: center;
+		gap: var(--space-sm);
+		padding-block: var(--space-section) 0;
+		text-align: center;
+	}
+
+	.not-found .not-found__code {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: var(--text-display);
+		color: var(--color-gold-text);
+		line-height: 1;
+	}
+
+	.not-found h1 {
+		font-size: var(--text-2xl);
+	}
+
+	.not-found p {
+		color: var(--color-text-secondary);
+	}
+
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--space-sm);
+		margin: var(--space-md) 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	a {
+		display: inline-block;
+		padding: var(--space-xs) var(--space-lg);
+		border-radius: var(--radius-pill);
+		background: var(--color-text);
+		color: var(--color-bg);
+		font-family: var(--font-display);
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+	li + li a {
+		background: transparent;
+		color: var(--color-text);
+		box-shadow: inset 0 0 0 1px var(--color-border);
+	}
+</style>

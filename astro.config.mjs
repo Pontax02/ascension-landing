@@ -1,4 +1,5 @@
 // @ts-check
+import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 
 // La web vive en GitHub Pages bajo /ascension-landing/. Con dominio propio basta con
@@ -9,12 +10,20 @@ export default defineConfig({
   base: '/ascension-landing',
   output: 'static',
   trailingSlash: 'ignore',
+  // El CSS total es ~4 KB gzip: incrustarlo evita dos peticiones que bloquean el primer render.
+  build: { inlineStylesheets: 'always' },
   // Español por defecto en la raíz; inglés en /en/. Textos en src/i18n/{es,en}.ts.
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],
     routing: { prefixDefaultLocale: false },
   },
+  integrations: [
+    sitemap({
+      i18n: { defaultLocale: 'es', locales: { es: 'es-ES', en: 'en-US' } },
+      filter: (page) => !/\/404\/?$/.test(page),
+    }),
+  ],
   // Fuentes de Fontsource descargadas en build y servidas desde el propio sitio (sin Google Fonts).
   fonts: [
     {

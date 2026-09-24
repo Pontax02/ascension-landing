@@ -3,6 +3,11 @@ import { CONTACT_EMAIL } from '../config';
 import { localePath, toLocale, useTranslations } from '../i18n';
 import LangSwitch from './LangSwitch.astro';
 
+interface Props {
+	langSwitch?: boolean;
+}
+
+const { langSwitch = true } = Astro.props;
 const lang = toLocale(Astro.currentLocale);
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
@@ -20,7 +25,7 @@ const year = new Date().getFullYear();
 				<li><a href={localePath(lang, '/delete-account')}>{t('footer.deleteAccount')}</a></li>
 			</ul>
 		</nav>
-		<LangSwitch />
+		{langSwitch && <LangSwitch />}
 		<p class="site-footer__copy">© {year} {t('footer.copyright')}</p>
 	</div>
 </footer>

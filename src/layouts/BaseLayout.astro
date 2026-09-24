@@ -3,24 +3,28 @@ import { Font } from 'astro:assets';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { DEFAULT_LOCALE, LOCALES, switchLocalePath, toLocale, useTranslations } from '../i18n';
+import { url } from '../lib/url';
 import '../styles/tokens.css';
 import '../styles/global.css';
 
 interface Props {
 	title?: string;
 	description?: string;
+	/** Páginas que no deben indexarse (404): sin canonical, hreflang ni selector de idioma. */
+	noindex?: boolean;
 }
+
+const OG_LOCALES = { es: 'es_ES', en: 'en_US' } as const;
 
 const lang = toLocale(Astro.currentLocale);
 const t = useTranslations(lang);
-const {
-	title = `${t('site.name')} — ${t('site.tagline')}`,
-	description = t('site.description'),
-} = Astro.props;
+const { title = t('site.title'), description = t('site.description'), noindex = false } = Astro.props;
 
 const absolute = (path: string) => new URL(path, Astro.site).href;
+const canonical = absolute(Astro.url.pathname);
 const alternates = LOCALES.map((l) => ({ lang: l, href: absolute(switchLocalePath(Astro.url.pathname, l)) }));
 const xDefault = alternates.find((a) => a.lang === DEFAULT_LOCALE)!.href;
+const ogImage = absolute(url(`/og/og-${lang}.png`));
 ---
 
 <html lang={lang}>
@@ -31,18 +35,52 @@ const xDefault = alternates.find((a) => a.lang === DEFAULT_LOCALE)!.href;
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<meta name="theme-color" content="#FFFFFF" />
-		<link rel="canonical" href={absolute(Astro.url.pathname)} />
-		{alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
-		<link rel="alternate" hreflang="x-default" href={xDefault} />
-		<Font cssVariable="--font-sora" preload={[{ weight: '700' }]} />
+		{noindex && <meta name="robots" content="noindex" />}
+		{
+			!noindex && (
+				<>
+					<link rel="canonical" href={canonical} />
+					{alternates.map((a) => (
+						<link rel="alternate" hreflang={a.lang} href={a.href} />
+					))}
+					<link rel="alternate" hreflang="x-default" href={xDefault} />
+				</>
+			)
+		}
+
+		<link rel="icon" href={url('/favicon.ico')} sizes="32x32" />
+		<link rel="icon" type="image/png" href={url('/favicon-32x32.png')} sizes="32x32" />
+		<link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
+		<link rel="sitemap" href={url('/sitemap-index.xml')} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={t('site.name')} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		{!noindex && <meta property="og:url" content={canonical} />}
+		<meta property="og:locale" content={OG_LOCALES[lang]} />
+		{
+			LOCALES.filter((l) => l !== lang).map((l) => (
+				<meta property="og:locale:alternate" content={OG_LOCALES[l]} />
+			))
+		}
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={t('og.imageAlt')} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:image" content={ogImage} />
+
+		<!-- Se precargan los dos pesos de Sora: ambos aparecen sobre el pliegue (evita CLS). -->
+		<Font cssVariable="--font-sora" preload />
 		<Font cssVariable="--font-inter" preload />
 	</head>
 	<body>
 		<a class="skip-link" href="#main">{t('a11y.skipToContent')}</a>
-		<Header />
+		<Header langSwitch={!noindex} />
 		<main id="main" tabindex="-1">
 			<slot />
 		</main>
-		<Footer />
+		<Footer langSwitch={!noindex} />
 	</body>
 </html>

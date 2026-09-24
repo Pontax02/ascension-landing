@@ -4,6 +4,11 @@ import logo from '../assets/logo-mark.png';
 import { localePath, toLocale, useTranslations } from '../i18n';
 import LangSwitch from './LangSwitch.astro';
 
+interface Props {
+	langSwitch?: boolean;
+}
+
+const { langSwitch = true } = Astro.props;
 const lang = toLocale(Astro.currentLocale);
 const t = useTranslations(lang);
 ---
@@ -14,7 +19,7 @@ const t = useTranslations(lang);
 			<Image src={logo} alt="" width={32} densities={[1, 2, 3]} loading="eager" />
 			<span class="brand__name">{t('site.name')}</span>
 		</a>
-		<LangSwitch />
+		{langSwitch && <LangSwitch />}
 	</div>
 </header>
 
