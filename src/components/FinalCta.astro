@@ -1,4 +1,6 @@
 ---
+// Cierre en panel partido: texto y CTA a la izquierda, símbolo con órbitas a la derecha
+// (el mismo motivo del hero, para cerrar el círculo).
 import { Image } from 'astro:assets';
 import mark from '../assets/logo-mark.png';
 import { useTranslations } from '../i18n';
@@ -8,13 +10,21 @@ const t = useTranslations(Astro.currentLocale);
 ---
 
 <section id="cta" class="cta" aria-labelledby="cta-title">
-	<div class="container cta__inner">
-		<div class="cta__mark reveal" style="--i: 0">
-			<Image src={mark} alt="" width={72} densities={[1, 2]} loading="lazy" />
+	<div class="container">
+		<div class="cta__panel">
+			<div class="cta__copy">
+				<h2 id="cta-title" class="reveal" style="--i: 0"><span lang="en">{t('site.tagline')}</span></h2>
+				<p class="cta__lead reveal" style="--i: 1">{t('cta.lead')}</p>
+				<PlayBadge class="reveal" style="--i: 2" />
+			</div>
+			<div class="cta__art reveal" style="--i: 1" aria-hidden="true">
+				<svg class="cta__orbits" viewBox="0 0 300 300">
+					<ellipse cx="150" cy="150" rx="140" ry="54" transform="rotate(-18 150 150)"></ellipse>
+					<circle cx="150" cy="150" r="104"></circle>
+				</svg>
+				<Image src={mark} alt="" width={120} densities={[1, 2]} loading="lazy" />
+			</div>
 		</div>
-		<h2 id="cta-title" class="reveal" style="--i: 1"><span lang="en">{t('site.tagline')}</span></h2>
-		<p class="cta__lead reveal" style="--i: 2">{t('cta.lead')}</p>
-		<PlayBadge class="reveal" style="--i: 3" />
 	</div>
 </section>
 
@@ -23,28 +33,71 @@ const t = useTranslations(Astro.currentLocale);
 		padding-block: var(--space-section) 0;
 	}
 
-	.cta__inner {
+	.cta__panel {
+		position: relative;
 		display: grid;
-		justify-items: center;
-		gap: var(--space-md);
-		text-align: center;
+		gap: var(--space-xl);
+		align-items: center;
+		padding: var(--space-2xl) var(--space-lg);
+		border-radius: var(--radius-2xl);
+		background:
+			radial-gradient(120% 90% at 100% 50%, rgb(201 168 76 / 0.18), transparent 60%),
+			var(--color-surface);
+		box-shadow: inset 0 0 0 1px rgb(29 29 31 / 0.05);
+		overflow: hidden;
 	}
 
-	.cta__mark {
+	.cta__copy {
 		display: grid;
-		place-items: center;
-		width: 112px;
-		height: 112px;
-		border-radius: 50%;
-		background: radial-gradient(closest-side, var(--color-gold-light), transparent);
+		gap: var(--space-sm);
+		justify-items: start;
 	}
 
 	.cta h2 {
-		font-size: var(--text-display);
+		font-size: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
+		letter-spacing: -0.02em;
 	}
 
 	.cta__lead {
 		font-size: var(--text-lg);
 		color: var(--color-text-secondary);
+	}
+
+	.cta__art {
+		position: relative;
+		display: grid;
+		place-items: center;
+		justify-self: center;
+		width: min(260px, 70%);
+		aspect-ratio: 1;
+	}
+
+	.cta__orbits {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		fill: none;
+		stroke: var(--color-gold);
+		stroke-opacity: 0.45;
+		stroke-width: 1;
+	}
+
+	.cta__orbits circle {
+		stroke: var(--color-divider);
+		stroke-opacity: 1;
+		stroke-dasharray: 2 6;
+	}
+
+	.cta__art :global(img) {
+		position: relative;
+		width: 42%;
+		height: auto;
+	}
+
+	@media (min-width: 768px) {
+		.cta__panel {
+			grid-template-columns: 1.4fr 1fr;
+			padding: var(--space-3xl) clamp(var(--space-xl), 5vw, 72px);
+		}
 	}
 </style>

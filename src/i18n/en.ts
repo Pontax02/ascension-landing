@@ -23,6 +23,19 @@ export const en: Record<UiKey, string> = {
   'hero.lead': 'Turn your habits into character progress: earn XP, level up and watch your avatar evolve.',
   'hero.screenshotAlt': 'Ascension profile screen showing level and experience bar',
   'hero.xpLabel': 'XP',
+  'hero.factsLabel': 'The basics',
+  'hero.facts.noAds': 'No ads',
+  'hero.facts.noSubs': 'No subscriptions',
+  'hero.facts.langs': 'In English and Spanish',
+  'hero.chipXp': '+40 XP',
+  'hero.chipHabit': 'Meditate I completed',
+  'hero.chipStreak': '12-day streak',
+
+  'pillars.eyebrow': 'How it works',
+  'pillars.levelShort': 'Lv',
+  'pillars.inviteCode': 'Invite code',
+  'evolution.eyebrow': 'Progression',
+  'screens.eyebrow': 'The app',
 
   'pillars.title': 'What is Ascension',
   'pillars.lead': 'Three simple ideas that make consistency visible.',
@@ -64,5 +77,6 @@ export const en: Record<UiKey, string> = {
   'footer.privacy': 'Privacy',
   'footer.deleteAccount': 'Delete account',
   'footer.legalLabel': 'Legal',
+  'footer.tagline': 'Habits with RPG progression.',
   'footer.copyright': 'Ascension Project',
 };

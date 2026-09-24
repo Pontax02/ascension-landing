@@ -122,7 +122,7 @@ describe.each(LOCALES)('home ($lang)', (locale) => {
 
   describe('pilares', () => {
     it('son tres, con icono, título y descripción', () => {
-      const items = section('pilares')!.querySelectorAll('li');
+      const items = section('pilares')!.querySelectorAll('li.pillar');
       expect(items).toHaveLength(3);
       for (const li of items) {
         expect(li.querySelector('svg')).not.toBeNull();

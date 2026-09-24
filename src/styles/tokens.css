@@ -10,12 +10,20 @@
   --color-text: #1D1D1F;
   --color-text-secondary: #6E6E73;
   --color-border: #E5E5EA;
+  --color-divider: #D1D1D6;
   --color-gold: #C9A84C;
   --color-gold-light: #F5E6C0;
   --color-gold-text: #8B6914;
   --color-success: #4CAF50;
   --color-focus: #1D1D1F;
   --color-hero: #2A2A2E;
+
+  /* Superficie oscura (sección de evolución), valores de la paleta oscura de la app */
+  --color-dark: #17171A;
+  --color-dark-raised: #1F1F23;
+  --color-text-on-dark: #F2F2F5;
+  --color-text-secondary-on-dark: #A0A0A8;
+  --color-border-on-dark: #2E2E33;
 
   /* ── Tipografía ──────────────────────────────────────── */
   --font-display: var(--font-sora), system-ui, sans-serif;
@@ -27,7 +35,7 @@
   --text-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
   --text-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
   --text-2xl: clamp(1.625rem, 1.3rem + 1.4vw, 2.5rem);
-  --text-display: clamp(2.5rem, 1.6rem + 4vw, 5rem);
+  --text-display: clamp(2.5rem, 1.7rem + 3.4vw, 4.5rem);
 
   --leading-tight: 1.1;
   --leading-body: 1.5;
@@ -57,7 +65,13 @@
   --gutter: var(--space-md);
 
   /* ── Efectos ─────────────────────────────────────────── */
-  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06);
+  /* Sombras tintadas con el tono del texto (no negro puro) + borde interior de 1px */
+  --shadow-card:
+    inset 0 0 0 1px rgb(29 29 31 / 0.05),
+    0 1px 2px rgb(29 29 31 / 0.04),
+    0 18px 40px -18px rgb(29 29 31 / 0.14);
+  --shadow-float: 0 1px 2px rgb(29 29 31 / 0.06), 0 12px 28px -10px rgb(29 29 31 / 0.22);
+  --radius-2xl: 32px;
   --glow-gold: 0 0 0 1px rgb(201 168 76 / 0.35), 0 8px 32px rgb(201 168 76 / 0.25);
   /* ── Movimiento ──────────────────────────────────────── */
   /* ease-out fuerte para entradas y respuesta; ease-in-out para lo que se mueve en pantalla.

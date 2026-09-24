@@ -41,10 +41,12 @@ h3 {
 
 h1 {
   font-size: var(--text-display);
+  letter-spacing: -0.02em;
 }
 
 h2 {
   font-size: var(--text-2xl);
+  letter-spacing: -0.01em;
 }
 
 h3 {
@@ -89,9 +91,44 @@ a {
   text-align: center;
 }
 
-.section-head p {
+.section-head p:not(.section-eyebrow) {
   font-size: var(--text-lg);
   color: var(--color-text-secondary);
+}
+
+/* Variante alineada a la izquierda (alterna con la centrada para romper la simetría). */
+.section-head--start {
+  margin-inline: 0;
+  text-align: left;
+}
+
+.section-eyebrow {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-gold-text);
+}
+
+/* Sección oscura: invierte los colores de texto de su contenido. */
+.section--dark {
+  background: var(--color-dark);
+  color: var(--color-text-on-dark);
+}
+
+.section--dark .section-head p:not(.section-eyebrow) {
+  color: var(--color-text-secondary-on-dark);
+}
+
+.section--dark .section-eyebrow {
+  color: var(--color-gold);
+}
+
+/* El anillo de foco oscuro no se vería sobre el fondo oscuro. */
+.section--dark :focus-visible {
+  outline-color: var(--color-gold);
+  box-shadow: none;
 }
 
 /* Texto largo (páginas legales en Markdown) */

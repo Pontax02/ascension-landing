@@ -21,6 +21,19 @@ export const es = {
   'hero.lead': 'Convierte tus hábitos en progreso de personaje: gana XP, sube de nivel y mira cómo evoluciona tu avatar.',
   'hero.screenshotAlt': 'Pantalla de perfil de Ascension con el nivel y la barra de experiencia',
   'hero.xpLabel': 'XP',
+  'hero.factsLabel': 'Lo básico',
+  'hero.facts.noAds': 'Sin anuncios',
+  'hero.facts.noSubs': 'Sin suscripciones',
+  'hero.facts.langs': 'En español e inglés',
+  'hero.chipXp': '+40 XP',
+  'hero.chipHabit': 'Meditar I completado',
+  'hero.chipStreak': 'Racha de 12 días',
+
+  'pillars.eyebrow': 'Cómo funciona',
+  'pillars.levelShort': 'Nv',
+  'pillars.inviteCode': 'Código de invitación',
+  'evolution.eyebrow': 'Progresión',
+  'screens.eyebrow': 'La app',
 
   'pillars.title': 'Qué es Ascension',
   'pillars.lead': 'Tres ideas simples para que la constancia se note.',
@@ -62,6 +75,7 @@ export const es = {
   'footer.privacy': 'Privacidad',
   'footer.deleteAccount': 'Borrar cuenta',
   'footer.legalLabel': 'Legal',
+  'footer.tagline': 'Hábitos con progresión RPG.',
   'footer.copyright': 'Ascension Project',
 } as const;
 

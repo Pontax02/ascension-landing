@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import mark from '../assets/logo-mark.png';
 import { CONTACT_EMAIL } from '../config';
 import { localePath, toLocale, useTranslations } from '../i18n';
 import LangSwitch from './LangSwitch.astro';
@@ -14,18 +16,41 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-	<div class="container site-footer__inner">
-		<p>
-			<span class="site-footer__label">{t('footer.contact')}:</span>
-			<a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-		</p>
-		<nav aria-label={t('footer.legalLabel')}>
-			<ul class="site-footer__links" role="list">
-				<li><a href={localePath(lang, '/privacy')}>{t('footer.privacy')}</a></li>
-				<li><a href={localePath(lang, '/delete-account')}>{t('footer.deleteAccount')}</a></li>
-			</ul>
-		</nav>
-		{langSwitch && <LangSwitch />}
+	<div class="container">
+		<div class="site-footer__grid">
+			<div class="site-footer__brand">
+				<a class="site-footer__logo" href={localePath(lang, '/')} aria-label={t('a11y.home')}>
+					<Image src={mark} alt="" width={28} densities={[1, 2]} loading="lazy" />
+					<span>{t('site.name')}</span>
+				</a>
+				<p>{t('footer.tagline')} <span lang="en">{t('site.tagline')}.</span></p>
+			</div>
+
+			<nav class="site-footer__col" aria-labelledby="footer-legal">
+				<h2 id="footer-legal">{t('footer.legalLabel')}</h2>
+				<ul role="list">
+					<li><a href={localePath(lang, '/privacy')}>{t('footer.privacy')}</a></li>
+					<li><a href={localePath(lang, '/delete-account')}>{t('footer.deleteAccount')}</a></li>
+				</ul>
+			</nav>
+
+			<div class="site-footer__col">
+				<h2>{t('footer.contact')}</h2>
+				<ul role="list">
+					<li><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></li>
+				</ul>
+			</div>
+
+			{
+				langSwitch && (
+					<div class="site-footer__col">
+						<h2>{t('lang.label')}</h2>
+						<LangSwitch />
+					</div>
+				)
+			}
+		</div>
+
 		<p class="site-footer__copy">© {year} {t('footer.copyright')}</p>
 	</div>
 </footer>
@@ -33,40 +58,76 @@ const year = new Date().getFullYear();
 <style>
 	.site-footer {
 		margin-top: var(--space-section);
-		padding-block: var(--space-xl);
+		padding-block: var(--space-2xl) var(--space-lg);
 		background: var(--color-surface);
 		border-top: 1px solid var(--color-border);
 		color: var(--color-text-secondary);
 		font-size: var(--text-sm);
 	}
 
-	.site-footer__inner {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-sm) var(--space-xl);
-		justify-content: space-between;
-		align-items: center;
+	.site-footer__grid {
+		display: grid;
+		gap: var(--space-xl) var(--space-lg);
 	}
 
-	.site-footer a {
+	.site-footer__brand {
+		display: grid;
+		gap: var(--space-xs);
+		align-content: start;
+		max-width: 36ch;
+	}
+
+	.site-footer__logo {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2xs);
+		color: var(--color-text);
+		font-family: var(--font-display);
+		font-weight: 700;
+		letter-spacing: var(--tracking-wordmark);
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+
+	.site-footer__col {
+		display: grid;
+		gap: var(--space-xs);
+		align-content: start;
+	}
+
+	.site-footer__col h2 {
+		font-family: var(--font-display);
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		color: var(--color-text);
 	}
 
-	.site-footer__label {
-		margin-right: var(--space-3xs);
-	}
-
-	.site-footer__links {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-2xs) var(--space-lg);
+	.site-footer__col ul {
+		display: grid;
+		gap: var(--space-2xs);
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
-	.site-footer__links a {
-		display: inline-block;
-		padding-block: var(--space-3xs);
+	.site-footer a {
+		color: var(--color-text);
+		text-decoration-color: var(--color-divider);
+		text-underline-offset: 0.25em;
+	}
+
+	.site-footer__copy {
+		margin-top: var(--space-2xl);
+		padding-top: var(--space-md);
+		border-top: 1px solid var(--color-border);
+	}
+
+	@media (min-width: 768px) {
+		.site-footer__grid {
+			grid-template-columns: 1.6fr repeat(3, auto);
+			justify-content: space-between;
+		}
 	}
 </style>
