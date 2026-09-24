@@ -133,9 +133,24 @@ const friends = [
 		gap: var(--space-lg);
 		align-content: start;
 		padding: var(--space-xl);
+		position: relative;
 		border-radius: var(--radius-2xl);
 		background: var(--color-bg);
 		box-shadow: var(--shadow-card);
+		transition: translate var(--duration-hover) var(--ease-out);
+	}
+
+	/* Sombra de elevación en su propia capa: en hover solo cambia su opacidad. Una sombra
+	   exterior no pinta dentro de la caja, así que no tapa el contenido. */
+	.pillar::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+		box-shadow: var(--shadow-lift);
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity var(--duration-hover) ease;
 	}
 
 	.pillar__text {
@@ -156,6 +171,9 @@ const friends = [
 		margin-bottom: var(--space-3xs);
 		border-radius: var(--radius-md);
 		background: var(--color-text);
+		transition:
+			rotate var(--duration-hover) var(--ease-out),
+			scale var(--duration-hover) var(--ease-out);
 	}
 
 	.pillar__icon svg {
@@ -356,6 +374,27 @@ const friends = [
 
 		.pillar--feature .tree {
 			width: min(100%, 380px);
+		}
+	}
+
+	/* ── Hover (solo con ratón): la tarjeta sube 4px, gana sombra y el icono "saluda".
+	   Con `translate`/`rotate`/`scale` sueltos, no con `transform`: el revelado al hacer scroll
+	   ya anima `transform` con fill: both y lo pisaría. Sin movimiento con "reducir movimiento";
+	   la sombra (no mueve nada) se mantiene. ── */
+	@media (hover: hover) and (pointer: fine) {
+		.pillar:hover::after {
+			opacity: 1;
+		}
+	}
+
+	@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+		.pillar:hover {
+			translate: 0 var(--lift);
+		}
+
+		.pillar:hover .pillar__icon {
+			rotate: -8deg;
+			scale: 1.08;
 		}
 	}
 

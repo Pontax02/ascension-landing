@@ -22,7 +22,7 @@ const badge = Astro.currentLocale === 'en' ? badgeEn : badgeEs;
 <div class:list={['play', className]} style={style}>
 	{
 		PLAY_STORE_URL ? (
-			<a class="play-badge play-badge--live" href={PLAY_STORE_URL}>
+			<a class="play-badge play-badge--live pressable" href={PLAY_STORE_URL}>
 				<Image
 					src={badge}
 					alt={t('play.altLive')}
@@ -49,6 +49,20 @@ const badge = Astro.currentLocale === 'en' ? badgeEn : badgeEs;
 		display: grid;
 		justify-items: inherit;
 		gap: var(--space-2xs);
+	}
+
+	/* El badge oficial no se modifica: solo sube 2px en hover y se hunde al pulsar (.pressable). */
+	.play-badge--live {
+		display: inline-block;
+		transition:
+			transform var(--duration-press) var(--ease-out),
+			translate var(--duration-hover) var(--ease-out);
+	}
+
+	@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+		.play-badge--live:hover {
+			translate: 0 -2px;
+		}
 	}
 
 	.play-badge--live :global(img) {

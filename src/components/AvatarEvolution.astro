@@ -95,6 +95,9 @@ const last = AVATAR_STAGES.length - 1;
 		text-align: center;
 		box-shadow: 0 24px 48px -24px rgb(0 0 0 / 0.5);
 		scroll-snap-align: start;
+		transition:
+			translate var(--duration-hover) var(--ease-out),
+			border-color var(--duration-hover) ease;
 	}
 
 	/* Conector entre etapas: la "pista de XP". */
@@ -123,6 +126,27 @@ const last = AVATAR_STAGES.length - 1;
 		object-fit: contain;
 		/* Los PNG traen fondo blanco: multiply lo funde con la tarjeta. */
 		mix-blend-mode: multiply;
+		transform-origin: 50% 90%;
+		transition: scale var(--duration-hover) var(--ease-out);
+	}
+
+	/* Hover (solo con ratón): el borde se enciende en dorado; con movimiento permitido, la
+	   tarjeta sube y el avatar crece un poco desde los pies. `translate`/`scale` sueltos para no
+	   pisar el `transform` de la cascada de entrada. */
+	@media (hover: hover) and (pointer: fine) {
+		.stage:not(.stage--final):hover {
+			border-color: rgb(201 168 76 / 0.5);
+		}
+	}
+
+	@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+		.stage:hover {
+			translate: 0 var(--lift);
+		}
+
+		.stage:hover .stage__art :global(img) {
+			scale: 1.05;
+		}
 	}
 
 	.level {

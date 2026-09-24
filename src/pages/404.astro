@@ -15,8 +15,8 @@ const en = useTranslations('en');
 		<p class="enter" style="--i: 2">{es('notFound.body')}</p>
 		<p class="enter" style="--i: 3" lang="en">{en('notFound.body')}</p>
 		<ul class="enter" style="--i: 4" role="list">
-			<li><a class="pressable" href={localePath('es', '/')}>{es('notFound.home')}</a></li>
-			<li lang="en"><a class="pressable" href={localePath('en', '/')}>{en('notFound.home')}</a></li>
+			<li><a class="not-found__btn pressable" href={localePath('es', '/')}>{es('notFound.home')}</a></li>
+			<li lang="en"><a class="not-found__btn pressable" href={localePath('en', '/')}>{en('notFound.home')}</a></li>
 		</ul>
 	</section>
 </BaseLayout>
@@ -71,5 +71,14 @@ const en = useTranslations('en');
 		background: transparent;
 		color: var(--color-text);
 		box-shadow: inset 0 0 0 1px var(--color-border);
+	}
+
+	/* Solo color (el fundido lo pone .pressable): el principal se aclara y el secundario se rellena. */
+	.not-found__btn:hover {
+		background: var(--color-hero);
+	}
+
+	li + li .not-found__btn:hover {
+		background: var(--color-surface);
 	}
 </style>

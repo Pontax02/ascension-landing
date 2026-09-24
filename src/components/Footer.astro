@@ -118,6 +118,21 @@ const year = new Date().getFullYear();
 		text-underline-offset: 0.25em;
 	}
 
+	/* El selector con ámbito de arriba gana al `a:hover` global: hay que repetirlo aquí. */
+	.site-footer a:hover {
+		text-decoration-color: var(--color-gold);
+	}
+
+	.site-footer__logo :global(img) {
+		transition: rotate var(--duration-hover) var(--ease-out);
+	}
+
+	@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+		.site-footer__logo:hover :global(img) {
+			rotate: -8deg;
+		}
+	}
+
 	.site-footer__copy {
 		margin-top: var(--space-2xl);
 		padding-top: var(--space-md);

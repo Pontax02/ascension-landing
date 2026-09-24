@@ -79,6 +79,17 @@ const t = useTranslations(lang);
 		text-decoration: none;
 	}
 
+	/* El logo gira un poco al pasar el ratón: una señal pequeña de que lleva al inicio. */
+	.brand :global(img) {
+		transition: rotate var(--duration-hover) var(--ease-out);
+	}
+
+	@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+		.brand:hover :global(img) {
+			rotate: -8deg;
+		}
+	}
+
 	.brand__name {
 		font-family: var(--font-display);
 		font-weight: 700;

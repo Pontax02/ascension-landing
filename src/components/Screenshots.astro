@@ -56,6 +56,18 @@ const t = useTranslations(Astro.currentLocale);
 		scroll-snap-align: start;
 	}
 
+	/* Hover (solo con ratón y movimiento permitido): el móvil sube 8px. Va sobre .phone, no sobre
+	   el <li>: el <li> ya usa `transform` (revelado) y `translate` (escalonado de escritorio). */
+	.screens__list :global(.phone) {
+		transition: translate var(--duration-hover) var(--ease-out);
+	}
+
+	@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+		.screens__list li:hover :global(.phone) {
+			translate: 0 calc(2 * var(--lift));
+		}
+	}
+
 	@media (prefers-reduced-motion: no-preference) {
 		@supports (animation-timeline: view()) {
 			/* Mismo caso que las etapas: el scroller horizontal no sirve de línea de tiempo. */
