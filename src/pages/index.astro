@@ -1,31 +1,16 @@
 ---
-// Contenido provisional: las secciones (hero, pilares, avatar, capturas, CTA) llegan en el paso 3.
-import { Image } from 'astro:assets';
-import logo from '../assets/logo.png';
-import { es } from '../i18n/es';
+import AvatarEvolution from '../components/AvatarEvolution.astro';
+import FinalCta from '../components/FinalCta.astro';
+import Hero from '../components/Hero.astro';
+import Pillars from '../components/Pillars.astro';
+import Screenshots from '../components/Screenshots.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout>
-	<section class="container placeholder">
-		<Image src={logo} alt={es['a11y.logoAlt']} width={160} densities={[1, 2]} loading="eager" />
-		<h1>{es['site.tagline']}</h1>
-		<p>{es['site.description']}</p>
-	</section>
+	<Hero />
+	<Pillars />
+	<AvatarEvolution />
+	<Screenshots />
+	<FinalCta />
 </BaseLayout>
-
-<style>
-	.placeholder {
-		display: grid;
-		justify-items: center;
-		gap: var(--space-lg);
-		padding-block: var(--space-section);
-		text-align: center;
-	}
-
-	.placeholder p {
-		max-width: 36ch;
-		font-size: var(--text-lg);
-		color: var(--color-text-secondary);
-	}
-</style>

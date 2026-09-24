@@ -81,6 +81,19 @@ a {
   margin-inline: auto;
 }
 
+.section-head {
+  display: grid;
+  gap: var(--space-xs);
+  max-width: 40rem;
+  margin: 0 auto var(--space-xl);
+  text-align: center;
+}
+
+.section-head p {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

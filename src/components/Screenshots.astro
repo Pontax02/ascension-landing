@@ -1,0 +1,67 @@
+---
+import { SCREENSHOTS } from '../data/screenshots';
+import { es } from '../i18n/es';
+import Phone from './Phone.astro';
+---
+
+<section id="capturas" class="screens" aria-labelledby="capturas-title">
+	<div class="container">
+		<header class="section-head">
+			<h2 id="capturas-title">{es['screens.title']}</h2>
+			<p>{es['screens.lead']}</p>
+		</header>
+	</div>
+
+	<ul class="screens__list" role="list" tabindex="0" aria-label={es['screens.listLabel']}>
+		{
+			SCREENSHOTS.map((shot) => (
+				<li>
+					<Phone image={shot.image} alt={es[`screens.${shot.id}`]} width={220} />
+				</li>
+			))
+		}
+	</ul>
+</section>
+
+<style>
+	.screens {
+		padding-block: var(--space-section);
+		background: var(--color-surface);
+	}
+
+	.screens__list {
+		display: grid;
+		grid-auto-flow: column;
+		grid-auto-columns: 220px;
+		gap: var(--space-xl);
+		justify-content: start;
+		margin: 0 auto;
+		padding: var(--space-xl) var(--gutter) var(--space-3xl);
+		max-width: calc(var(--container) + 2 * var(--gutter));
+		list-style: none;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scroll-padding-inline: var(--gutter);
+		overscroll-behavior-x: contain;
+	}
+
+	.screens__list:focus-visible {
+		outline-offset: -3px;
+	}
+
+	.screens__list li {
+		scroll-snap-align: start;
+	}
+
+	@media (min-width: 1040px) {
+		.screens__list {
+			justify-content: center;
+			overflow: visible;
+		}
+
+		/* Ligero escalonado para dar ritmo en escritorio. */
+		.screens__list li:nth-child(even) {
+			translate: 0 var(--space-xl);
+		}
+	}
+</style>

@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+import mark from '../assets/logo-mark.png';
+import { es } from '../i18n/es';
+import PlayBadge from './PlayBadge.astro';
+---
+
+<section id="cta" class="cta" aria-labelledby="cta-title">
+	<div class="container cta__inner">
+		<div class="cta__mark">
+			<Image src={mark} alt="" width={72} densities={[1, 2]} loading="lazy" />
+		</div>
+		<h2 id="cta-title"><span lang="en">{es['site.tagline']}</span></h2>
+		<p class="cta__lead">{es['cta.lead']}</p>
+		<PlayBadge />
+	</div>
+</section>
+
+<style>
+	.cta {
+		padding-block: var(--space-section) 0;
+	}
+
+	.cta__inner {
+		display: grid;
+		justify-items: center;
+		gap: var(--space-md);
+		text-align: center;
+	}
+
+	.cta__mark {
+		display: grid;
+		place-items: center;
+		width: 112px;
+		height: 112px;
+		border-radius: 50%;
+		background: radial-gradient(closest-side, var(--color-gold-light), transparent);
+	}
+
+	.cta h2 {
+		font-size: var(--text-display);
+	}
+
+	.cta__lead {
+		font-size: var(--text-lg);
+		color: var(--color-text-secondary);
+	}
+</style>

@@ -1,0 +1,110 @@
+---
+import { es } from '../i18n/es';
+
+const pillars = [
+	{ id: 'tree', title: es['pillars.tree.title'], body: es['pillars.tree.body'] },
+	{ id: 'rpg', title: es['pillars.rpg.title'], body: es['pillars.rpg.body'] },
+	{ id: 'friends', title: es['pillars.friends.title'], body: es['pillars.friends.body'] },
+] as const;
+---
+
+<section id="pilares" class="pillars" aria-labelledby="pilares-title">
+	<div class="container">
+		<header class="section-head">
+			<h2 id="pilares-title">{es['pillars.title']}</h2>
+			<p>{es['pillars.lead']}</p>
+		</header>
+
+		<ul class="pillars__list" role="list">
+			{
+				pillars.map(({ id, title, body }) => (
+					<li class="pillar">
+						<span class="pillar__icon">
+							{id === 'tree' && (
+								<svg viewBox="0 0 24 24" aria-hidden="true">
+									<circle cx="12" cy="20" r="2" />
+									<circle cx="6" cy="11" r="2" />
+									<circle cx="18" cy="11" r="2" />
+									<circle cx="6" cy="3.5" r="1.5" />
+									<circle cx="18" cy="3.5" r="1.5" />
+									<path d="M12 18v-3l-6-2m6 2 6-2M6 9V5m12 4V5" />
+								</svg>
+							)}
+							{id === 'rpg' && (
+								<svg viewBox="0 0 24 24" aria-hidden="true">
+									<path d="m12 2 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 15.4l-5.2 2.7 1-5.8L3.5 8.2l5.9-.9Z" />
+									<rect x="3" y="20" width="18" height="2" rx="1" />
+								</svg>
+							)}
+							{id === 'friends' && (
+								<svg viewBox="0 0 24 24" aria-hidden="true">
+									<circle cx="9" cy="8" r="3.5" />
+									<circle cx="17" cy="9" r="2.5" />
+									<path d="M2.5 20c.6-3.6 3.2-6 6.5-6s5.9 2.4 6.5 6M15 14.2c.6-.1 1.3-.2 2-.2 2.6 0 4.4 2 4.8 5" />
+								</svg>
+							)}
+						</span>
+						<h3>{title}</h3>
+						<p>{body}</p>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>
+
+<style>
+	.pillars {
+		padding-block: var(--space-section);
+		background: var(--color-surface);
+	}
+
+	.pillars__list {
+		display: grid;
+		gap: var(--space-md);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.pillar {
+		display: grid;
+		gap: var(--space-xs);
+		align-content: start;
+		padding: var(--space-xl) var(--space-lg);
+		border-radius: var(--radius-xl);
+		background: var(--color-bg);
+		box-shadow: var(--shadow-card);
+	}
+
+	.pillar__icon {
+		display: grid;
+		place-items: center;
+		width: 52px;
+		height: 52px;
+		margin-bottom: var(--space-2xs);
+		border-radius: var(--radius-lg);
+		background: var(--color-text);
+		box-shadow: var(--glow-gold);
+	}
+
+	.pillar__icon svg {
+		width: 26px;
+		height: 26px;
+		fill: none;
+		stroke: var(--color-gold);
+		stroke-width: 1.6;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.pillar p {
+		color: var(--color-text-secondary);
+	}
+
+	@media (min-width: 768px) {
+		.pillars__list {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+</style>

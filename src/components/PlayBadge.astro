@@ -1,0 +1,69 @@
+---
+// Badge oficial de Google Play, sin modificar (guías de marca de Google: nada de atenuarlo ni
+// superponerle elementos). Con PLAY_STORE_URL = null muestra "Próximamente" y no enlaza.
+import { Image } from 'astro:assets';
+import badge from '../assets/badges/google-play-es.png';
+import { PLAY_STORE_URL } from '../config';
+import { es } from '../i18n/es';
+
+interface Props {
+	eager?: boolean;
+}
+
+const { eager = false } = Astro.props;
+const img = { src: badge, width: 180, densities: [1, 2], loading: eager ? 'eager' : 'lazy' } as const;
+---
+
+<div class="play">
+	{
+		PLAY_STORE_URL ? (
+			<a class="play-badge" href={PLAY_STORE_URL}>
+				<Image {...img} alt={es['play.altLive']} />
+			</a>
+		) : (
+			<div class="play-badge">
+				<span class="play-badge__status">{es['play.comingSoon']}</span>
+				<Image {...img} alt={es['play.altSoon']} />
+			</div>
+		)
+	}
+	<p class="play__note">{es['play.freeToStart']}</p>
+</div>
+
+<style>
+	.play {
+		display: grid;
+		justify-items: inherit;
+		gap: var(--space-3xs);
+	}
+
+	.play-badge {
+		display: grid;
+		justify-items: inherit;
+		gap: var(--space-3xs);
+	}
+
+	.play-badge :global(img) {
+		/* El PNG oficial trae margen transparente; se compensa para alinear con el texto. */
+		margin-inline: -11px;
+	}
+
+	.play-badge__status {
+		justify-self: inherit;
+		padding: 2px var(--space-xs);
+		border: 1px solid var(--color-gold);
+		border-radius: var(--radius-pill);
+		background: var(--color-gold-light);
+		color: var(--color-text);
+		font-family: var(--font-display);
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.play__note {
+		font-size: var(--text-sm);
+		color: var(--color-text-secondary);
+	}
+</style>
