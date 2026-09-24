@@ -31,3 +31,8 @@ DEVELOPMENT.md
 AGENTS.md
 CLAUDE.md
 .vscode/
+
+# skills de agentes instaladas en local (npx skills add ...)
+.agents/
+.claude/
+skills-lock.json
