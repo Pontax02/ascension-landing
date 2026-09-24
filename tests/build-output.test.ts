@@ -2,6 +2,7 @@
 // y apuntar a un fichero que exista. Ejecutar tras `astro build` (npm run test:build).
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import { parse } from 'node-html-parser';
 import { describe, expect, it } from 'vitest';
 import config from '../astro.config.mjs';
 
@@ -82,6 +83,12 @@ describe('layout base', () => {
   it('el header enlaza a la home respetando base', () => {
     const header = home().match(/<header[\s\S]*?<\/header>/)?.[0] ?? '';
     expect(header).toMatch(new RegExp(`<a[^>]+href="${BASE}/"`));
+  });
+
+  it('el footer se organiza en columnas con título (marca, legal, contacto)', () => {
+    const footer = parse(home()).querySelector('footer');
+    expect(footer?.querySelector('.site-footer__brand')).not.toBeNull();
+    expect(footer?.querySelectorAll('.site-footer__col h2').length).toBeGreaterThanOrEqual(2);
   });
 
   it('el footer tiene el email de contacto y el copyright', () => {

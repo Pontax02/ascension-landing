@@ -41,6 +41,10 @@ describe('contraste de texto (AA ≥ 4.5:1)', () => {
     ['--color-gold-text', '--color-bg'],
     ['--color-gold-text', '--color-surface'],
     ['--color-text', '--color-gold'],
+    // Sección oscura (evolución del avatar)
+    ['--color-text-on-dark', '--color-dark'],
+    ['--color-text-secondary-on-dark', '--color-dark'],
+    ['--color-gold', '--color-dark'],
   ])('%s sobre %s', (fg, bg) => {
     expect(contrast(fg, bg)).toBeGreaterThanOrEqual(4.5);
   });

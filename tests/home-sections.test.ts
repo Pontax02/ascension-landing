@@ -16,6 +16,7 @@ const LOCALES = [
     levels: ['Nivel 1', 'Nivel 6', 'Nivel 11', 'Nivel 21', 'Nivel 36+'],
     comingSoon: 'Próximamente en Google Play',
     freeToStart: 'Gratis para empezar',
+    facts: ['Sin anuncios', 'Sin suscripciones', 'En español e inglés'],
     forbidden: [/100\s*%\s*gratis/i, /nivel(es)?\s+(hasta\s+(el\s+)?)?100\b/i, /drag[oó]n/i],
   },
   {
@@ -27,6 +28,7 @@ const LOCALES = [
     levels: ['Level 1', 'Level 6', 'Level 11', 'Level 21', 'Level 36+'],
     comingSoon: 'Coming soon to Google Play',
     freeToStart: 'Free to start',
+    facts: ['No ads', 'No subscriptions', 'In English and Spanish'],
     forbidden: [/100\s*%\s*free/i, /levels?\s+(up\s+to\s+)?100\b/i, /dragon/i],
   },
 ] as const;
@@ -61,6 +63,37 @@ describe.each(LOCALES)('home ($lang)', (locale) => {
 
     it('muestra un mockup de móvil con imagen', () => {
       expect(section('hero')!.querySelector('.phone img')).not.toBeNull();
+    });
+
+    it('enumera hechos concretos del producto', () => {
+      const facts = section('hero')!.querySelectorAll('.hero__facts li').map((li) => text(li));
+      expect(facts).toEqual([...locale.facts]);
+    });
+
+    it('los adornos flotantes del mockup no los lee un lector de pantalla', () => {
+      const chips = section('hero')!.querySelectorAll('.float-chip');
+      expect(chips.length).toBeGreaterThanOrEqual(2);
+      for (const c of chips) expect(c.closest('[aria-hidden="true"]')).not.toBeNull();
+    });
+  });
+
+  describe('ritmo editorial', () => {
+    it.each(['pilares', 'evolucion', 'capturas'])('la sección %s lleva etiqueta superior', (id) => {
+      expect(text(section(id)!.querySelector('.section-eyebrow'))).toBeTruthy();
+    });
+
+    it('la evolución del avatar es la sección oscura', () => {
+      expect(section('evolucion')!.classList.contains('section--dark')).toBe(true);
+    });
+
+    it('los pilares no son una fila de tres tarjetas iguales: uno es el destacado', () => {
+      expect(section('pilares')!.querySelectorAll('li.pillar--feature')).toHaveLength(1);
+    });
+
+    it('cada pilar muestra una muestra visual de la app, oculta a lectores de pantalla', () => {
+      for (const li of section('pilares')!.querySelectorAll('li.pillar')) {
+        expect(li.querySelector('.pillar__visual[aria-hidden="true"]')).not.toBeNull();
+      }
     });
   });
 
