@@ -1,9 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-// Mientras no haya dominio propio, la web vive en GitHub Pages bajo /ascension-landing/.
-// Al comprar ascensionproject.app: site -> 'https://ascensionproject.app' y eliminar `base`
-// (ver README, sección "Cuando se compre el dominio").
+// La web vive en GitHub Pages bajo /ascension-landing/. Con dominio propio basta con
+// cambiar `site` y eliminar `base`: todas las rutas pasan por url() (src/lib/url.ts).
 // https://astro.build/config
 export default defineConfig({
   site: 'https://pontax02.github.io',
