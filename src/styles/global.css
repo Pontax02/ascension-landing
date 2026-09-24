@@ -180,6 +180,47 @@ a {
   transform: none;
 }
 
+/* ── Movimiento ───────────────────────────────────────────────
+   Todo el movimiento vive dentro de `no-preference`: con "reducir movimiento" la página es
+   estática. Sin JavaScript: entradas al cargar con keyframes y revelados con animaciones
+   ligadas al scroll (solo donde el navegador las soporta; si no, el contenido ya es visible). */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Entrada al cargar, escalonada con --i (60 ms entre elementos). */
+  .enter {
+    animation: rise-in var(--duration-enter) var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 60ms);
+  }
+
+  @supports (animation-timeline: view()) {
+    /* Revelado al entrar en pantalla. --i desplaza el tramo para escalonar filas. */
+    .reveal,
+    .section-head {
+      animation: rise-in var(--ease-out) both;
+      animation-timeline: view();
+      animation-range: entry calc(var(--i, 0) * 8%) entry calc(70% + var(--i, 0) * 8%);
+    }
+  }
+}
+
+/* Respuesta al pulsar: cualquier elemento con forma de botón. */
+.pressable {
+  transition:
+    transform var(--duration-press) var(--ease-out),
+    background-color var(--duration-ui) ease;
+}
+
+.pressable:active {
+  transform: scale(0.97);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

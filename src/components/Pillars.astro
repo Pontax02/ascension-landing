@@ -19,8 +19,8 @@ const pillars = [
 
 		<ul class="pillars__list" role="list">
 			{
-				pillars.map(({ id, title, body }) => (
-					<li class="pillar">
+				pillars.map(({ id, title, body }, i) => (
+					<li class="pillar reveal" style={`--i: ${i}`}>
 						<span class="pillar__icon">
 							{id === 'tree' && (
 								<svg viewBox="0 0 24 24" aria-hidden="true">

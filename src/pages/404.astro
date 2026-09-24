@@ -15,8 +15,8 @@ const en = useTranslations('en');
 		<p>{es('notFound.body')}</p>
 		<p lang="en">{en('notFound.body')}</p>
 		<ul role="list">
-			<li><a href={localePath('es', '/')}>{es('notFound.home')}</a></li>
-			<li lang="en"><a href={localePath('en', '/')}>{en('notFound.home')}</a></li>
+			<li><a class="pressable" href={localePath('es', '/')}>{es('notFound.home')}</a></li>
+			<li lang="en"><a class="pressable" href={localePath('en', '/')}>{en('notFound.home')}</a></li>
 		</ul>
 	</section>
 </BaseLayout>

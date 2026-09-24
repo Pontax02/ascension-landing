@@ -9,12 +9,12 @@ const t = useTranslations(Astro.currentLocale);
 
 <section id="cta" class="cta" aria-labelledby="cta-title">
 	<div class="container cta__inner">
-		<div class="cta__mark">
+		<div class="cta__mark reveal" style="--i: 0">
 			<Image src={mark} alt="" width={72} densities={[1, 2]} loading="lazy" />
 		</div>
-		<h2 id="cta-title"><span lang="en">{t('site.tagline')}</span></h2>
-		<p class="cta__lead">{t('cta.lead')}</p>
-		<PlayBadge />
+		<h2 id="cta-title" class="reveal" style="--i: 1"><span lang="en">{t('site.tagline')}</span></h2>
+		<p class="cta__lead reveal" style="--i: 2">{t('cta.lead')}</p>
+		<PlayBadge class="reveal" style="--i: 3" />
 	</div>
 </section>
 

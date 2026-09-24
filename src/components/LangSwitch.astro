@@ -16,7 +16,7 @@ const t = useTranslations(current);
 							{t(`lang.${lang}`)}
 						</span>
 					) : (
-						<a href={switchLocalePath(Astro.url.pathname, lang)} hreflang={lang} lang={lang}>
+						<a class="pressable" href={switchLocalePath(Astro.url.pathname, lang)} hreflang={lang} lang={lang}>
 							{t(`lang.${lang}`)}
 						</a>
 					)}

@@ -16,8 +16,8 @@ const t = useTranslations(Astro.currentLocale);
 
 	<ul class="screens__list" role="list" tabindex="0" aria-label={t('screens.listLabel')}>
 		{
-			SCREENSHOTS.map((shot) => (
-				<li>
+			SCREENSHOTS.map((shot, i) => (
+				<li style={`--i: ${i}`}>
 					<Phone image={shot.image} alt={t(`screens.${shot.id}`)} width={220} />
 				</li>
 			))
@@ -53,6 +53,21 @@ const t = useTranslations(Astro.currentLocale);
 
 	.screens__list li {
 		scroll-snap-align: start;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		@supports (animation-timeline: view()) {
+			/* Mismo caso que las etapas: el scroller horizontal no sirve de línea de tiempo. */
+			.screens__list {
+				view-timeline: --screens block;
+			}
+
+			.screens__list li {
+				animation: rise-in var(--ease-out) both;
+				animation-timeline: --screens;
+				animation-range: entry calc(5% + var(--i) * 8%) entry calc(55% + var(--i) * 8%);
+			}
+		}
 	}
 
 	@media (min-width: 1040px) {

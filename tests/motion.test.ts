@@ -85,7 +85,7 @@ describe('movimiento: reglas de oficio', () => {
   });
 
   it('lo pulsable responde al tocar (scale al :active)', () => {
-    const press = decls.filter((d) => /:active/.test(selectorOf(d)) && /scale\(0\.9[5-8]\)/.test(`${d.prop}:${d.value}`));
+    const press = decls.filter((d) => /:active/.test(selectorOf(d)) && /scale\(0?\.9[5-8]\)/.test(`${d.prop}:${d.value}`));
     expect(press.length).toBeGreaterThan(0);
   });
 

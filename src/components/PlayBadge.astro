@@ -10,14 +10,16 @@ import { useTranslations } from '../i18n';
 
 interface Props {
 	eager?: boolean;
+	class?: string;
+	style?: string;
 }
 
-const { eager = false } = Astro.props;
+const { eager = false, class: className, style } = Astro.props;
 const t = useTranslations(Astro.currentLocale);
 const badge = Astro.currentLocale === 'en' ? badgeEn : badgeEs;
 ---
 
-<div class="play">
+<div class:list={['play', className]} style={style}>
 	{
 		PLAY_STORE_URL ? (
 			<a class="play-badge play-badge--live" href={PLAY_STORE_URL}>

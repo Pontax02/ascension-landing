@@ -22,7 +22,7 @@ const last = AVATAR_STAGES.length - 1;
 				const name = t(`evolution.${stage.id}`);
 				const level = `${t('evolution.level')} ${stage.minLevel}${i === last ? '+' : ''}`;
 				return (
-					<li class:list={['stage', { 'stage--final': i === last }]}>
+					<li class:list={['stage', { 'stage--final': i === last }]} style={`--i: ${i}`}>
 						<div class="stage__art">
 							<Image
 								src={stage.image}
@@ -123,8 +123,47 @@ const last = AVATAR_STAGES.length - 1;
 
 	.stage--final {
 		border-color: var(--color-gold);
-		box-shadow: var(--glow-gold);
 		background: linear-gradient(180deg, var(--color-bg) 55%, var(--color-gold-light));
+	}
+
+	/* El brillo va en una capa aparte para animar solo su opacidad (GPU), no el box-shadow. */
+	.stage--final::before {
+		content: '';
+		position: absolute;
+		inset: -1px;
+		border-radius: inherit;
+		box-shadow: var(--glow-gold);
+		pointer-events: none;
+	}
+
+	@keyframes glow-in {
+		from {
+			opacity: 0;
+		}
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		@supports (animation-timeline: view()) {
+			/* Las etapas viven en un contenedor con scroll horizontal: un view() propio se ataría a
+			   él (que no se mueve en vertical). La lista declara la línea de tiempo y cada etapa
+			   la usa con su tramo desplazado: Novato → … → Ascensión, en cascada. */
+			.stages {
+				view-timeline: --stages block;
+			}
+
+			.stage {
+				animation: rise-in var(--ease-out) both;
+				animation-timeline: --stages;
+				animation-range: entry calc(10% + var(--i) * 7%) entry calc(60% + var(--i) * 7%);
+			}
+
+			/* La última etapa se "enciende" cuando termina la cascada: el clímax de la sección. */
+			.stage--final::before {
+				animation: glow-in var(--ease-out) both;
+				animation-timeline: --stages;
+				animation-range: entry 75% cover 45%;
+			}
+		}
 	}
 
 	@media (min-width: 1100px) {

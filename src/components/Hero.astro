@@ -10,13 +10,13 @@ const t = useTranslations(Astro.currentLocale);
 <section id="hero" class="hero" aria-labelledby="hero-title">
 	<div class="container hero__inner">
 		<div class="hero__copy">
-			<p class="eyebrow">{t('hero.eyebrow')}</p>
-			<h1 id="hero-title"><span lang="en">{t('site.tagline')}</span></h1>
-			<p class="hero__lead">{t('hero.lead')}</p>
-			<PlayBadge eager />
+			<p class="eyebrow enter" style="--i: 0">{t('hero.eyebrow')}</p>
+			<h1 id="hero-title" class="enter" style="--i: 1"><span lang="en">{t('site.tagline')}</span></h1>
+			<p class="hero__lead enter" style="--i: 2">{t('hero.lead')}</p>
+			<PlayBadge eager class="enter" style="--i: 3" />
 		</div>
 
-		<div class="hero__visual">
+		<div class="hero__visual enter" style="--i: 4">
 			<div class="hero__glow" aria-hidden="true"></div>
 			<Phone image={HERO_SCREENSHOT.image} alt={t('hero.screenshotAlt')} width={260} eager />
 			<div class="xp-chip" aria-hidden="true">
@@ -125,16 +125,33 @@ const t = useTranslations(Astro.currentLocale);
 		border-radius: inherit;
 		background: linear-gradient(90deg, var(--color-gold-light), var(--color-gold));
 		transform-origin: left;
-		animation: xp-fill 1.4s var(--ease) 0.3s both;
 	}
 
 	.xp-chip__label {
 		color: var(--color-gold-text);
 	}
 
+	/* La barra de XP se llena cuando el móvil termina de entrar: el primer "progreso" que ve el
+	   visitante. Decorativa y de una sola vez, así que puede durar más que la UI normal. */
 	@keyframes xp-fill {
 		from {
-			transform: scaleX(0);
+			transform: scaleX(0.04);
+		}
+	}
+
+	@keyframes level-pop {
+		50% {
+			transform: scale(1.12);
+		}
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.xp-chip__bar span {
+			animation: xp-fill 1.2s var(--ease-out) 700ms both;
+		}
+
+		.xp-chip__level {
+			animation: level-pop 360ms var(--ease-out) 1.7s both;
 		}
 	}
 
