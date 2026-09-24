@@ -98,7 +98,17 @@ describe.each(LOCALES)('política de privacidad ($lang)', (locale) => {
     const survey = titles.findIndex((t) => /encuesta|survey/i.test(t)) + 1;
     const retention = titles.findIndex((t) => /conservación|retention/i.test(t)) + 1;
     const purchases = titles.findIndex((t) => locale.privacy.purchases.heading.test(t)) + 1;
-    expect(refs.every((n) => [survey, retention, purchases].includes(n))).toBe(true);
+    const rights = titles.findIndex((t) => /RGPD|GDPR/.test(t)) + 1;
+    expect(refs.every((n) => [survey, retention, purchases, rights].includes(n))).toBe(true);
+  });
+
+  it('la encuesta remite a la sección de derechos RGPD al decir que esos derechos no se aplican', () => {
+    const h2s = main().querySelectorAll('h2');
+    const rights = h2s.findIndex((h) => /RGPD|GDPR/.test(h.textContent)) + 1;
+    const survey = h2s.find((h) => /encuesta|survey/i.test(h.textContent));
+    const text: string[] = [];
+    for (let el = survey?.nextElementSibling; el && el.tagName !== 'H2'; el = el.nextElementSibling) text.push(el.textContent);
+    expect(clean(text.join(' '))).toMatch(new RegExp(`(sección|section) ${rights}\\b`, 'i'));
   });
 
   it('tiene meta description', () => {

@@ -20,7 +20,7 @@ También recogemos los datos de uso que genera tu actividad en la app, como los 
 
 La primera vez que abres la App, te pedimos que respondas unas pocas preguntas (por ejemplo, cómo conociste Ascension). Tus respuestas se recogen de forma anónima y no se vinculan de ningún modo a tu cuenta ni a tu identidad, por lo que no constituyen datos personales.
 
-Usamos estas respuestas, de forma agregada, con fines de estudio de mercado y para mejorar cómo llegamos a nuevos usuarios. Como nunca se vinculan a una persona identificable, se conservan de forma agregada sin que les sea aplicable una solicitud de borrado individual; los derechos descritos en la sección 7 no se aplican a estos datos anónimos, ya que no tenemos forma de saber qué respuestas pertenecen a cada persona.
+Usamos estas respuestas, de forma agregada, con fines de estudio de mercado y para mejorar cómo llegamos a nuevos usuarios. Como nunca se vinculan a una persona identificable, se conservan de forma agregada sin que les sea aplicable una solicitud de borrado individual; los derechos descritos en la sección 8 no se aplican a estos datos anónimos, ya que no tenemos forma de saber qué respuestas pertenecen a cada persona.
 
 ## 3. Compras dentro de la app
 
