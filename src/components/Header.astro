@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-mark.png';
+import { es } from '../i18n/es';
+import { url } from '../lib/url';
+---
+
+<header class="site-header">
+	<div class="container site-header__inner">
+		<a class="brand" href={url('/')} aria-label={es['a11y.home']}>
+			<Image src={logo} alt="" width={32} densities={[1, 2, 3]} loading="eager" />
+			<span class="brand__name">{es['site.name']}</span>
+		</a>
+		<!-- Paso i18n: selector de idioma aquí -->
+	</div>
+</header>
+
+<style>
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 10;
+		background: rgb(255 255 255 / 0.85);
+		backdrop-filter: saturate(180%) blur(16px);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.site-header__inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		min-height: 56px;
+	}
+
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2xs);
+		padding-block: var(--space-2xs);
+		text-decoration: none;
+	}
+
+	.brand__name {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: var(--text-sm);
+		letter-spacing: var(--tracking-wordmark);
+		text-transform: uppercase;
+	}
+</style>

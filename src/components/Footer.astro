@@ -1,0 +1,44 @@
+---
+import { CONTACT_EMAIL } from '../config';
+import { es } from '../i18n/es';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<div class="container site-footer__inner">
+		<p>
+			<span class="site-footer__label">{es['footer.contact']}:</span>
+			<a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+		</p>
+		<!-- Paso legal: enlaces a Privacidad y Borrado de cuenta. Paso i18n: selector de idioma. -->
+		<p class="site-footer__copy">© {year} {es['footer.copyright']}</p>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		margin-top: var(--space-section);
+		padding-block: var(--space-xl);
+		background: var(--color-surface);
+		border-top: 1px solid var(--color-border);
+		color: var(--color-text-secondary);
+		font-size: var(--text-sm);
+	}
+
+	.site-footer__inner {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-xs) var(--space-xl);
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.site-footer a {
+		color: var(--color-text);
+	}
+
+	.site-footer__label {
+		margin-right: var(--space-3xs);
+	}
+</style>

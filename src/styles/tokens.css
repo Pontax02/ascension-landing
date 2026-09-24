@@ -1,0 +1,64 @@
+/*
+ * Tokens de diseño. Valores alineados con el tema de la app (colores, espaciado y radios).
+ * Contraste comprobado en tokens.test.ts: --color-gold es para fondos, bordes y texto grande;
+ * para texto normal en dorado usar --color-gold-text.
+ */
+:root {
+  /* ── Color ───────────────────────────────────────────── */
+  --color-bg: #FFFFFF;
+  --color-surface: #F5F5F7;
+  --color-text: #1D1D1F;
+  --color-text-secondary: #6E6E73;
+  --color-border: #E5E5EA;
+  --color-gold: #C9A84C;
+  --color-gold-light: #F5E6C0;
+  --color-gold-text: #8B6914;
+  --color-success: #4CAF50;
+  --color-focus: #1D1D1F;
+  --color-hero: #2A2A2E;
+
+  /* ── Tipografía ──────────────────────────────────────── */
+  --font-display: var(--font-sora), system-ui, sans-serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+
+  /* Escala fluida: móvil (375px) → escritorio (1280px) */
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  --text-2xl: clamp(1.625rem, 1.3rem + 1.4vw, 2.5rem);
+  --text-display: clamp(2.5rem, 1.6rem + 4vw, 5rem);
+
+  --leading-tight: 1.1;
+  --leading-body: 1.5;
+  --tracking-wordmark: 0.25em;
+
+  /* ── Espaciado ───────────────────────────────────────── */
+  --space-3xs: 4px;
+  --space-2xs: 8px;
+  --space-xs: 12px;
+  --space-sm: 16px;
+  --space-md: 20px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
+  --space-3xl: 48px;
+  --space-section: clamp(64px, 8vw, 128px);
+
+  /* ── Forma ───────────────────────────────────────────── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  /* ── Layout ──────────────────────────────────────────── */
+  --container: 1120px;
+  --gutter: var(--space-md);
+
+  /* ── Efectos ─────────────────────────────────────────── */
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06);
+  --glow-gold: 0 0 0 1px rgb(201 168 76 / 0.35), 0 8px 32px rgb(201 168 76 / 0.25);
+  --duration: 200ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}

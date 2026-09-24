@@ -1,23 +1,31 @@
 ---
-// Página provisional (paso 1): valida build, deploy y subpath. Se sustituye en el paso 3.
+// Contenido provisional: las secciones (hero, pilares, avatar, capturas, CTA) llegan en el paso 3.
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.png';
-import { url } from '../lib/url';
+import { es } from '../i18n/es';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="es">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Ascension — Time to ascend</title>
-	</head>
-	<body>
-		<main>
-			<Image src={logo} alt="Logo de Ascension" width={240} loading="eager" />
-			<h1>Ascension</h1>
-			<p>Time to ascend</p>
-			<p><a href={url('/')}>Inicio</a></p>
-		</main>
-	</body>
-</html>
+<BaseLayout>
+	<section class="container placeholder">
+		<Image src={logo} alt={es['a11y.logoAlt']} width={160} densities={[1, 2]} loading="eager" />
+		<h1>{es['site.tagline']}</h1>
+		<p>{es['site.description']}</p>
+	</section>
+</BaseLayout>
+
+<style>
+	.placeholder {
+		display: grid;
+		justify-items: center;
+		gap: var(--space-lg);
+		padding-block: var(--space-section);
+		text-align: center;
+	}
+
+	.placeholder p {
+		max-width: 36ch;
+		font-size: var(--text-lg);
+		color: var(--color-text-secondary);
+	}
+</style>
