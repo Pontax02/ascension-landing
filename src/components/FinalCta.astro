@@ -1,8 +1,10 @@
 ---
 import { Image } from 'astro:assets';
 import mark from '../assets/logo-mark.png';
-import { es } from '../i18n/es';
+import { useTranslations } from '../i18n';
 import PlayBadge from './PlayBadge.astro';
+
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <section id="cta" class="cta" aria-labelledby="cta-title">
@@ -10,8 +12,8 @@ import PlayBadge from './PlayBadge.astro';
 		<div class="cta__mark">
 			<Image src={mark} alt="" width={72} densities={[1, 2]} loading="lazy" />
 		</div>
-		<h2 id="cta-title"><span lang="en">{es['site.tagline']}</span></h2>
-		<p class="cta__lead">{es['cta.lead']}</p>
+		<h2 id="cta-title"><span lang="en">{t('site.tagline')}</span></h2>
+		<p class="cta__lead">{t('cta.lead')}</p>
 		<PlayBadge />
 	</div>
 </section>

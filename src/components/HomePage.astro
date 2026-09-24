@@ -1,0 +1,17 @@
+---
+// Home compartida por todos los idiomas; el idioma lo determina la ruta (Astro.currentLocale).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AvatarEvolution from './AvatarEvolution.astro';
+import FinalCta from './FinalCta.astro';
+import Hero from './Hero.astro';
+import Pillars from './Pillars.astro';
+import Screenshots from './Screenshots.astro';
+---
+
+<BaseLayout>
+	<Hero />
+	<Pillars />
+	<AvatarEvolution />
+	<Screenshots />
+	<FinalCta />
+</BaseLayout>

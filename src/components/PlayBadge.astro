@@ -1,65 +1,81 @@
 ---
-// Badge oficial de Google Play, sin modificar (guías de marca de Google: nada de atenuarlo ni
-// superponerle elementos). Con PLAY_STORE_URL = null muestra "Próximamente" y no enlaza.
+// Con la app publicada (PLAY_STORE_URL != null): badge oficial de Google Play en el idioma de la
+// página, sin modificar (guías de marca de Google). Mientras no lo esté: aviso propio
+// "Próximamente en Google Play", sin el badge oficial (que dice "Disponible en") y sin enlace.
 import { Image } from 'astro:assets';
-import badge from '../assets/badges/google-play-es.png';
+import badgeEn from '../assets/badges/google-play-en.png';
+import badgeEs from '../assets/badges/google-play-es.png';
 import { PLAY_STORE_URL } from '../config';
-import { es } from '../i18n/es';
+import { useTranslations } from '../i18n';
 
 interface Props {
 	eager?: boolean;
 }
 
 const { eager = false } = Astro.props;
-const img = { src: badge, width: 180, densities: [1, 2], loading: eager ? 'eager' : 'lazy' } as const;
+const t = useTranslations(Astro.currentLocale);
+const badge = Astro.currentLocale === 'en' ? badgeEn : badgeEs;
 ---
 
 <div class="play">
 	{
 		PLAY_STORE_URL ? (
-			<a class="play-badge" href={PLAY_STORE_URL}>
-				<Image {...img} alt={es['play.altLive']} />
+			<a class="play-badge play-badge--live" href={PLAY_STORE_URL}>
+				<Image
+					src={badge}
+					alt={t('play.altLive')}
+					width={180}
+					densities={[1, 2]}
+					loading={eager ? 'eager' : 'lazy'}
+				/>
 			</a>
 		) : (
-			<div class="play-badge">
-				<span class="play-badge__status">{es['play.comingSoon']}</span>
-				<Image {...img} alt={es['play.altSoon']} />
-			</div>
+			<p class="play-badge play-badge--soon">
+				<svg viewBox="0 0 24 24" aria-hidden="true">
+					<rect x="6" y="2" width="12" height="20" rx="3" />
+					<path d="M11 18h2" />
+				</svg>
+				<span>{t('play.comingSoon')}</span>
+			</p>
 		)
 	}
-	<p class="play__note">{es['play.freeToStart']}</p>
+	<p class="play__note">{t('play.freeToStart')}</p>
 </div>
 
 <style>
 	.play {
 		display: grid;
 		justify-items: inherit;
-		gap: var(--space-3xs);
+		gap: var(--space-2xs);
 	}
 
-	.play-badge {
-		display: grid;
-		justify-items: inherit;
-		gap: var(--space-3xs);
-	}
-
-	.play-badge :global(img) {
+	.play-badge--live :global(img) {
 		/* El PNG oficial trae margen transparente; se compensa para alinear con el texto. */
 		margin-inline: -11px;
 	}
 
-	.play-badge__status {
-		justify-self: inherit;
-		padding: 2px var(--space-xs);
+	.play-badge--soon {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2xs);
+		margin: 0;
+		padding: var(--space-xs) var(--space-lg) var(--space-xs) var(--space-md);
 		border: 1px solid var(--color-gold);
 		border-radius: var(--radius-pill);
-		background: var(--color-gold-light);
-		color: var(--color-text);
+		background: var(--color-text);
+		color: var(--color-bg);
 		font-family: var(--font-display);
-		font-size: 0.75rem;
 		font-weight: 600;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
+		box-shadow: var(--glow-gold);
+	}
+
+	.play-badge--soon svg {
+		width: 20px;
+		height: 20px;
+		fill: none;
+		stroke: var(--color-gold);
+		stroke-width: 1.8;
+		stroke-linecap: round;
 	}
 
 	.play__note {

@@ -1,0 +1,61 @@
+---
+// Selector de idioma sin JavaScript: enlaces a la misma página en cada idioma.
+import { LOCALES, switchLocalePath, useTranslations } from '../i18n';
+
+const current = Astro.currentLocale;
+const t = useTranslations(current);
+---
+
+<nav class="lang-switch" aria-label={t('lang.label')}>
+	<ul role="list">
+		{
+			LOCALES.map((lang) => (
+				<li>
+					{lang === current ? (
+						<span aria-current="page" lang={lang}>
+							{t(`lang.${lang}`)}
+						</span>
+					) : (
+						<a href={switchLocalePath(Astro.url.pathname, lang)} hreflang={lang} lang={lang}>
+							{t(`lang.${lang}`)}
+						</a>
+					)}
+				</li>
+			))
+		}
+	</ul>
+</nav>
+
+<style>
+	ul {
+		display: flex;
+		gap: var(--space-3xs);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	a,
+	span {
+		display: inline-block;
+		padding: var(--space-3xs) var(--space-xs);
+		border-radius: var(--radius-pill);
+		font-size: var(--text-sm);
+		line-height: 1.4;
+	}
+
+	span {
+		background: var(--color-text);
+		color: var(--color-bg);
+		font-weight: 600;
+	}
+
+	a {
+		color: var(--color-text);
+		text-decoration: none;
+	}
+
+	a:hover {
+		background: var(--color-border);
+	}
+</style>

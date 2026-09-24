@@ -1,7 +1,9 @@
 ---
 import { Image } from 'astro:assets';
 import { AVATAR_STAGES } from '../data/avatar-stages';
-import { es } from '../i18n/es';
+import { useTranslations } from '../i18n';
+
+const t = useTranslations(Astro.currentLocale);
 
 const last = AVATAR_STAGES.length - 1;
 ---
@@ -9,22 +11,22 @@ const last = AVATAR_STAGES.length - 1;
 <section id="evolucion" class="evolution" aria-labelledby="evolucion-title">
 	<div class="container">
 		<header class="section-head">
-			<h2 id="evolucion-title">{es['evolution.title']}</h2>
-			<p>{es['evolution.lead']}</p>
+			<h2 id="evolucion-title">{t('evolution.title')}</h2>
+			<p>{t('evolution.lead')}</p>
 		</header>
 	</div>
 
-	<ol class="stages" tabindex="0" aria-label={es['evolution.listLabel']}>
+	<ol class="stages" tabindex="0" aria-label={t('evolution.listLabel')}>
 		{
 			AVATAR_STAGES.map((stage, i) => {
-				const name = es[`evolution.${stage.id}`];
-				const level = `${es['evolution.level']} ${stage.minLevel}${i === last ? '+' : ''}`;
+				const name = t(`evolution.${stage.id}`);
+				const level = `${t('evolution.level')} ${stage.minLevel}${i === last ? '+' : ''}`;
 				return (
 					<li class:list={['stage', { 'stage--final': i === last }]}>
 						<div class="stage__art">
 							<Image
 								src={stage.image}
-								alt={`${es['evolution.alt']} ${name}`}
+								alt={`${t('evolution.alt')} ${name}`}
 								width={180}
 								densities={[1, 2]}
 								loading="lazy"

@@ -1,18 +1,20 @@
 ---
-import { es } from '../i18n/es';
+import { useTranslations } from '../i18n';
+
+const t = useTranslations(Astro.currentLocale);
 
 const pillars = [
-	{ id: 'tree', title: es['pillars.tree.title'], body: es['pillars.tree.body'] },
-	{ id: 'rpg', title: es['pillars.rpg.title'], body: es['pillars.rpg.body'] },
-	{ id: 'friends', title: es['pillars.friends.title'], body: es['pillars.friends.body'] },
+	{ id: 'tree', title: t('pillars.tree.title'), body: t('pillars.tree.body') },
+	{ id: 'rpg', title: t('pillars.rpg.title'), body: t('pillars.rpg.body') },
+	{ id: 'friends', title: t('pillars.friends.title'), body: t('pillars.friends.body') },
 ] as const;
 ---
 
 <section id="pilares" class="pillars" aria-labelledby="pilares-title">
 	<div class="container">
 		<header class="section-head">
-			<h2 id="pilares-title">{es['pillars.title']}</h2>
-			<p>{es['pillars.lead']}</p>
+			<h2 id="pilares-title">{t('pillars.title')}</h2>
+			<p>{t('pillars.lead')}</p>
 		</header>
 
 		<ul class="pillars__list" role="list">

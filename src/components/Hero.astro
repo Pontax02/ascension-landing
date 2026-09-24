@@ -1,26 +1,28 @@
 ---
 import { HERO_SCREENSHOT } from '../data/screenshots';
-import { es } from '../i18n/es';
+import { useTranslations } from '../i18n';
 import Phone from './Phone.astro';
 import PlayBadge from './PlayBadge.astro';
+
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <section id="hero" class="hero" aria-labelledby="hero-title">
 	<div class="container hero__inner">
 		<div class="hero__copy">
-			<p class="eyebrow">{es['hero.eyebrow']}</p>
-			<h1 id="hero-title"><span lang="en">{es['site.tagline']}</span></h1>
-			<p class="hero__lead">{es['hero.lead']}</p>
+			<p class="eyebrow">{t('hero.eyebrow')}</p>
+			<h1 id="hero-title"><span lang="en">{t('site.tagline')}</span></h1>
+			<p class="hero__lead">{t('hero.lead')}</p>
 			<PlayBadge eager />
 		</div>
 
 		<div class="hero__visual">
 			<div class="hero__glow" aria-hidden="true"></div>
-			<Phone image={HERO_SCREENSHOT.image} alt={es['hero.screenshotAlt']} width={260} eager />
+			<Phone image={HERO_SCREENSHOT.image} alt={t('hero.screenshotAlt')} width={260} eager />
 			<div class="xp-chip" aria-hidden="true">
 				<span class="xp-chip__level">12</span>
 				<span class="xp-chip__bar"><span></span></span>
-				<span class="xp-chip__label">{es['hero.xpLabel']}</span>
+				<span class="xp-chip__label">{t('hero.xpLabel')}</span>
 			</div>
 		</div>
 	</div>

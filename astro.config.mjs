@@ -9,6 +9,12 @@ export default defineConfig({
   base: '/ascension-landing',
   output: 'static',
   trailingSlash: 'ignore',
+  // Español por defecto en la raíz; inglés en /en/. Textos en src/i18n/{es,en}.ts.
+  i18n: {
+    defaultLocale: 'es',
+    locales: ['es', 'en'],
+    routing: { prefixDefaultLocale: false },
+  },
   // Fuentes de Fontsource descargadas en build y servidas desde el propio sitio (sin Google Fonts).
   fonts: [
     {

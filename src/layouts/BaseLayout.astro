@@ -2,21 +2,25 @@
 import { Font } from 'astro:assets';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { es } from '../i18n/es';
+import { DEFAULT_LOCALE, LOCALES, switchLocalePath, toLocale, useTranslations } from '../i18n';
 import '../styles/tokens.css';
 import '../styles/global.css';
 
 interface Props {
 	title?: string;
 	description?: string;
-	lang?: string;
 }
 
+const lang = toLocale(Astro.currentLocale);
+const t = useTranslations(lang);
 const {
-	title = `${es['site.name']} — ${es['site.tagline']}`,
-	description = es['site.description'],
-	lang = 'es',
+	title = `${t('site.name')} — ${t('site.tagline')}`,
+	description = t('site.description'),
 } = Astro.props;
+
+const absolute = (path: string) => new URL(path, Astro.site).href;
+const alternates = LOCALES.map((l) => ({ lang: l, href: absolute(switchLocalePath(Astro.url.pathname, l)) }));
+const xDefault = alternates.find((a) => a.lang === DEFAULT_LOCALE)!.href;
 ---
 
 <html lang={lang}>
@@ -27,11 +31,14 @@ const {
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<meta name="theme-color" content="#FFFFFF" />
+		<link rel="canonical" href={absolute(Astro.url.pathname)} />
+		{alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
+		<link rel="alternate" hreflang="x-default" href={xDefault} />
 		<Font cssVariable="--font-sora" preload={[{ weight: '700' }]} />
 		<Font cssVariable="--font-inter" preload />
 	</head>
 	<body>
-		<a class="skip-link" href="#main">{es['a11y.skipToContent']}</a>
+		<a class="skip-link" href="#main">{t('a11y.skipToContent')}</a>
 		<Header />
 		<main id="main" tabindex="-1">
 			<slot />

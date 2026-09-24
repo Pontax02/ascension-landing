@@ -1,22 +1,24 @@
 ---
 import { SCREENSHOTS } from '../data/screenshots';
-import { es } from '../i18n/es';
+import { useTranslations } from '../i18n';
 import Phone from './Phone.astro';
+
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <section id="capturas" class="screens" aria-labelledby="capturas-title">
 	<div class="container">
 		<header class="section-head">
-			<h2 id="capturas-title">{es['screens.title']}</h2>
-			<p>{es['screens.lead']}</p>
+			<h2 id="capturas-title">{t('screens.title')}</h2>
+			<p>{t('screens.lead')}</p>
 		</header>
 	</div>
 
-	<ul class="screens__list" role="list" tabindex="0" aria-label={es['screens.listLabel']}>
+	<ul class="screens__list" role="list" tabindex="0" aria-label={t('screens.listLabel')}>
 		{
 			SCREENSHOTS.map((shot) => (
 				<li>
-					<Phone image={shot.image} alt={es[`screens.${shot.id}`]} width={220} />
+					<Phone image={shot.image} alt={t(`screens.${shot.id}`)} width={220} />
 				</li>
 			))
 		}

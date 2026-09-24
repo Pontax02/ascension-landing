@@ -1,4 +1,4 @@
-// Textos en español (idioma por defecto). En el paso de i18n se añade en.ts con las mismas claves.
+// Textos en español (idioma por defecto). en.ts debe tener exactamente las mismas claves.
 // Solo describir funciones que existen en la app (ver ascension-app); nada de "100% gratis".
 export const es = {
   'site.name': 'Ascension',
@@ -8,9 +8,8 @@ export const es = {
   'a11y.home': 'Ascension, ir al inicio',
   'a11y.logoAlt': 'Logo de Ascension',
 
-  'play.comingSoon': 'Próximamente',
+  'play.comingSoon': 'Próximamente en Google Play',
   'play.altLive': 'Disponible en Google Play',
-  'play.altSoon': 'Google Play',
   'play.freeToStart': 'Gratis para empezar',
 
   'hero.eyebrow': 'App de hábitos con progresión RPG',
@@ -47,6 +46,10 @@ export const es = {
   'screens.amigos': 'Lista de amigos con su nivel',
 
   'cta.lead': 'Tu próximo nivel empieza hoy.',
+
+  'lang.label': 'Idioma',
+  'lang.es': 'Español',
+  'lang.en': 'English',
 
   'footer.contact': 'Contacto',
   'footer.copyright': 'Ascension Project',

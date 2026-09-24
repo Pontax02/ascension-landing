@@ -1,17 +1,20 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../assets/logo-mark.png';
-import { es } from '../i18n/es';
-import { url } from '../lib/url';
+import { localePath, toLocale, useTranslations } from '../i18n';
+import LangSwitch from './LangSwitch.astro';
+
+const lang = toLocale(Astro.currentLocale);
+const t = useTranslations(lang);
 ---
 
 <header class="site-header">
 	<div class="container site-header__inner">
-		<a class="brand" href={url('/')} aria-label={es['a11y.home']}>
+		<a class="brand" href={localePath(lang, '/')} aria-label={t('a11y.home')}>
 			<Image src={logo} alt="" width={32} densities={[1, 2, 3]} loading="eager" />
-			<span class="brand__name">{es['site.name']}</span>
+			<span class="brand__name">{t('site.name')}</span>
 		</a>
-		<!-- Paso i18n: selector de idioma aquí -->
+		<LangSwitch />
 	</div>
 </header>
 
@@ -29,6 +32,7 @@ import { url } from '../lib/url';
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		gap: var(--space-sm);
 		min-height: 56px;
 	}
 
