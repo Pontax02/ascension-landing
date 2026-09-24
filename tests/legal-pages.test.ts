@@ -20,7 +20,11 @@ const LOCALES = [
   {
     lang: 'es',
     prefix: '',
-    privacy: { title: /Política de privacidad/i, sections: 10 },
+    privacy: {
+      title: /Política de privacidad/i,
+      sections: 11,
+      purchases: { heading: /Compras dentro de la app/i, mentions: [/Google Play/, /token de compra/i, /desvinculad/i] },
+    },
     del: {
       title: /borrar tu cuenta/i,
       steps: ['Ajustes', 'Cuenta', 'Eliminar cuenta', 'contraseña actual'],
@@ -34,7 +38,11 @@ const LOCALES = [
   {
     lang: 'en',
     prefix: '/en',
-    privacy: { title: /Privacy Policy/i, sections: 10 },
+    privacy: {
+      title: /Privacy Policy/i,
+      sections: 11,
+      purchases: { heading: /In-App Purchases/i, mentions: [/Google Play/, /purchase token/i, /unlinked/i] },
+    },
     del: {
       title: /delete your (Ascension )?account/i,
       steps: ['Settings', 'Account', 'Delete account', 'current password'],
@@ -71,6 +79,26 @@ describe.each(LOCALES)('política de privacidad ($lang)', (locale) => {
 
   it('enlaza al email de contacto', () => {
     expect(main().querySelector(`a[href^="mailto:${CONTACT_EMAIL}"]`)).not.toBeNull();
+  });
+
+  it('explica qué datos de las compras se guardan y que se conservan desvinculados', () => {
+    const heading = main().querySelectorAll('h2').find((h) => locale.privacy.purchases.heading.test(h.textContent));
+    expect(heading).toBeDefined();
+    const section: string[] = [];
+    for (let el = heading?.nextElementSibling; el && el.tagName !== 'H2'; el = el.nextElementSibling) section.push(el.textContent);
+    for (const re of locale.privacy.purchases.mentions) expect(clean(section.join(' '))).toMatch(re);
+  });
+
+  it('las referencias "sección N" apuntan a secciones que existen y tratan lo citado', () => {
+    const titles = main().querySelectorAll('h2').map((h) => clean(h.textContent));
+    const refs = [...clean(main().textContent).matchAll(/(?:sección|section|secciones|sections) (\d+)/gi)].map((m) => Number(m[1]));
+    expect(refs.length).toBeGreaterThan(0);
+    for (const n of refs) expect(titles[n - 1], `sección ${n}`).toMatch(new RegExp(`^${n}\\.`));
+    // La encuesta anónima y los derechos RGPD se citan por número: que el número siga siendo el correcto.
+    const survey = titles.findIndex((t) => /encuesta|survey/i.test(t)) + 1;
+    const retention = titles.findIndex((t) => /conservación|retention/i.test(t)) + 1;
+    const purchases = titles.findIndex((t) => locale.privacy.purchases.heading.test(t)) + 1;
+    expect(refs.every((n) => [survey, retention, purchases].includes(n))).toBe(true);
   });
 
   it('tiene meta description', () => {
