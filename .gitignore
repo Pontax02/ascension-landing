@@ -26,3 +26,5 @@ pnpm-debug.log*
 # documentos de trabajo internos (no publicar)
 BRIEF.md
 privacidad.txt
+.private-patterns
+DEVELOPMENT.md
