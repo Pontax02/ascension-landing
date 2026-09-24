@@ -100,3 +100,28 @@ describe('movimiento: reglas de oficio', () => {
     expect(html).not.toMatch(/<script/i);
   });
 });
+
+describe('movimiento: componentes', () => {
+  it('el header se "eleva" al empezar el scroll (ligado al scroll de la página)', () => {
+    const raise = decls.filter((d) => d.prop === 'animation-timeline' && /scroll\(/.test(d.value) && /header/.test(selectorOf(d)));
+    expect(raise.length).toBeGreaterThan(0);
+  });
+
+  it('las navegaciones entre páginas usan View Transitions, solo sin "reducir movimiento"', () => {
+    const vt: AtRule[] = [];
+    root.walkAtRules('view-transition', (a) => {
+      vt.push(a);
+    });
+    expect(vt.length).toBeGreaterThan(0);
+    for (const a of vt) expect(ancestors(a as unknown as Rule).some((p) => p.type === 'atrule' && /no-preference/.test((p as AtRule).params))).toBe(true);
+  });
+
+  it('el header no se funde al navegar (tiene nombre de transición propio)', () => {
+    expect(decls.some((d) => d.prop === 'view-transition-name' && /header/.test(selectorOf(d)))).toBe(true);
+  });
+
+  it('la página 404 entra escalonada', () => {
+    const notFound = existsSync(join(DIST, '404.html')) ? readFileSync(join(DIST, '404.html'), 'utf8') : '';
+    expect((notFound.match(/class="[^"]*\benter\b/g) ?? []).length).toBeGreaterThanOrEqual(3);
+  });
+});
