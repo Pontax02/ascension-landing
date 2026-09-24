@@ -87,8 +87,8 @@ const friends = [
 				<div class="pillar__visual pillar__visual--friends" aria-hidden="true">
 					<ul class="faces" role="list">
 						{
-							friends.map((f) => (
-								<li>
+							friends.map((f, n) => (
+								<li style={`--n: ${n}`}>
 									<Image src={f.image} alt="" width={48} densities={[1, 2]} loading="lazy" />
 									<span>{f.level}</span>
 								</li>
@@ -373,6 +373,13 @@ const friends = [
 		}
 	}
 
+	@keyframes face-in {
+		from {
+			opacity: 0;
+			transform: scale(0.9);
+		}
+	}
+
 	@keyframes fill {
 		from {
 			transform: scaleX(0.05);
@@ -400,6 +407,17 @@ const friends = [
 				animation: fill var(--ease-out) both;
 				animation-timeline: view();
 				animation-range: entry 40% cover 50%;
+			}
+
+			/* Las caras de los amigos llegan una a una (desde 0.9, nunca desde 0). */
+			.faces {
+				view-timeline: --faces block;
+			}
+
+			.faces li {
+				animation: face-in var(--ease-out) both;
+				animation-timeline: --faces;
+				animation-range: entry calc(40% + var(--n) * 12%) cover calc(40% + var(--n) * 6%);
 			}
 		}
 	}

@@ -78,6 +78,9 @@
      Nunca ease-in: empieza lento justo cuando el usuario está mirando. */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  /* Para movimiento ligado al scroll. Ir como var() también impide que el minificador funda
+     animation-timeline en el shorthand `animation` (Chrome lo rechaza y descarta la regla). */
+  --ease-linear: linear;
   --duration-press: 160ms;
   --duration-ui: 200ms;
   --duration-enter: 600ms;

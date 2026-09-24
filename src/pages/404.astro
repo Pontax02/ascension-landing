@@ -10,11 +10,11 @@ const en = useTranslations('en');
 
 <BaseLayout title={`${es('notFound.title')} — Ascension`} description={es('notFound.body')} noindex>
 	<section class="container not-found">
-		<p class="not-found__code" aria-hidden="true">404</p>
-		<h1>{es('notFound.title')}</h1>
-		<p>{es('notFound.body')}</p>
-		<p lang="en">{en('notFound.body')}</p>
-		<ul role="list">
+		<p class="not-found__code enter" style="--i: 0" aria-hidden="true">404</p>
+		<h1 class="enter" style="--i: 1">{es('notFound.title')}</h1>
+		<p class="enter" style="--i: 2">{es('notFound.body')}</p>
+		<p class="enter" style="--i: 3" lang="en">{en('notFound.body')}</p>
+		<ul class="enter" style="--i: 4" role="list">
 			<li><a class="pressable" href={localePath('es', '/')}>{es('notFound.home')}</a></li>
 			<li lang="en"><a class="pressable" href={localePath('en', '/')}>{en('notFound.home')}</a></li>
 		</ul>

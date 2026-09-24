@@ -30,7 +30,37 @@ const t = useTranslations(lang);
 		z-index: 10;
 		background: rgb(255 255 255 / 0.92);
 		backdrop-filter: saturate(180%) blur(16px);
-		border-bottom: 1px solid var(--color-border);
+		/* Se queda quieto en las View Transitions entre páginas: solo cambia el contenido. */
+		view-transition-name: site-header;
+	}
+
+	/* Borde + sombra en una capa aparte: así se anima solo su opacidad. */
+	.site-header::after {
+		content: '';
+		position: absolute;
+		inset: auto 0 0;
+		height: 1px;
+		background: var(--color-border);
+		box-shadow: 0 8px 24px -8px rgb(29 29 31 / 0.14);
+		pointer-events: none;
+	}
+
+	@keyframes header-raise {
+		from {
+			opacity: 0;
+		}
+	}
+
+	/* Arriba del todo el header se funde con el hero; al bajar 80px aparece el borde.
+	   Ligado al scroll: sin soporte o con "reducir movimiento", el borde se ve siempre. */
+	@media (prefers-reduced-motion: no-preference) {
+		@supports (animation-timeline: scroll()) {
+			.site-header::after {
+				animation: header-raise var(--ease-linear) both;
+				animation-timeline: scroll(root);
+				animation-range: 0 80px;
+			}
+		}
 	}
 
 	.site-header__inner {

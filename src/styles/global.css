@@ -247,6 +247,29 @@ a {
   }
 }
 
+/* Navegar entre páginas (ES↔EN, home↔legales) funde el contenido en vez de saltar.
+   Solo CSS: los navegadores sin soporte navegan como siempre. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 200ms;
+    animation-timing-function: var(--ease-out);
+  }
+}
+
+/* Subrayados: el color pasa a dorado al pasar el ratón (solo color, no mueve nada). */
+a {
+  transition: text-decoration-color 150ms ease;
+}
+
+a:hover {
+  text-decoration-color: var(--color-gold);
+}
+
 /* Respuesta al pulsar: cualquier elemento con forma de botón. */
 .pressable {
   transition:

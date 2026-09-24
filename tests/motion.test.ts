@@ -67,6 +67,13 @@ describe('movimiento: reglas de oficio', () => {
     expect(bad.map(where)).toEqual([]);
   });
 
+  // Regresión: el minificador fundió animation-timeline en `animation: … scroll(root)` y Chrome
+  // rechaza la línea de tiempo dentro del shorthand (descarta la declaración entera).
+  it('la línea de tiempo nunca va dentro del shorthand animation', () => {
+    const bad = decls.filter((d) => d.prop === 'animation' && /\b(scroll|view)\(/.test(d.value));
+    expect(bad.map(where)).toEqual([]);
+  });
+
   it('las animaciones ligadas al scroll solo se activan donde hay soporte', () => {
     const scrollDriven = decls.filter((d) => d.prop === 'animation-timeline');
     expect(scrollDriven.length).toBeGreaterThan(0);
