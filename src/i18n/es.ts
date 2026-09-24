@@ -51,7 +51,12 @@ export const es = {
   'lang.es': 'Español',
   'lang.en': 'English',
 
+  'legal.updated': 'Última actualización',
+
   'footer.contact': 'Contacto',
+  'footer.privacy': 'Privacidad',
+  'footer.deleteAccount': 'Borrar cuenta',
+  'footer.legalLabel': 'Legal',
   'footer.copyright': 'Ascension Project',
 } as const;
 

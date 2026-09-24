@@ -1,9 +1,10 @@
 ---
 import { CONTACT_EMAIL } from '../config';
-import { useTranslations } from '../i18n';
+import { localePath, toLocale, useTranslations } from '../i18n';
 import LangSwitch from './LangSwitch.astro';
 
-const t = useTranslations(Astro.currentLocale);
+const lang = toLocale(Astro.currentLocale);
+const t = useTranslations(lang);
 const year = new Date().getFullYear();
 ---
 
@@ -13,7 +14,12 @@ const year = new Date().getFullYear();
 			<span class="site-footer__label">{t('footer.contact')}:</span>
 			<a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
 		</p>
-		<!-- Paso legal: enlaces a Privacidad y Borrado de cuenta. -->
+		<nav aria-label={t('footer.legalLabel')}>
+			<ul class="site-footer__links" role="list">
+				<li><a href={localePath(lang, '/privacy')}>{t('footer.privacy')}</a></li>
+				<li><a href={localePath(lang, '/delete-account')}>{t('footer.deleteAccount')}</a></li>
+			</ul>
+		</nav>
 		<LangSwitch />
 		<p class="site-footer__copy">© {year} {t('footer.copyright')}</p>
 	</div>
@@ -43,5 +49,19 @@ const year = new Date().getFullYear();
 
 	.site-footer__label {
 		margin-right: var(--space-3xs);
+	}
+
+	.site-footer__links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2xs) var(--space-lg);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.site-footer__links a {
+		display: inline-block;
+		padding-block: var(--space-3xs);
 	}
 </style>

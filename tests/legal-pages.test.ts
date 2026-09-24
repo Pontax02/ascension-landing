@@ -36,7 +36,7 @@ const LOCALES = [
     prefix: '/en',
     privacy: { title: /Privacy Policy/i, sections: 10 },
     del: {
-      title: /delete your account/i,
+      title: /delete your (Ascension )?account/i,
       steps: ['Settings', 'Account', 'Delete account', 'current password'],
       subject: 'Account deletion request',
       deadline: /30 days/,
@@ -125,17 +125,17 @@ describe.each(LOCALES)('footer enlaza a las páginas legales ($lang)', (locale) 
     const footer = doc.querySelector('footer');
     const privacy = footer?.querySelectorAll('a').find((a) => clean(a.textContent) === locale.footer.privacy);
     const del = footer?.querySelectorAll('a').find((a) => clean(a.textContent) === locale.footer.delete);
-    expect(privacy?.getAttribute('href')).toBe(`${BASE}${locale.prefix}/privacy`);
-    expect(del?.getAttribute('href')).toBe(`${BASE}${locale.prefix}/delete-account`);
+    expect(privacy?.getAttribute('href')).toBe(`${BASE}${locale.prefix}/privacy/`);
+    expect(del?.getAttribute('href')).toBe(`${BASE}${locale.prefix}/delete-account/`);
   });
 });
 
 describe('el selector de idioma de las páginas legales apunta a su equivalente', () => {
   it.each([
-    [join('privacy', 'index.html'), `${BASE}/en/privacy`],
-    [join('en', 'privacy', 'index.html'), `${BASE}/privacy`],
-    [join('delete-account', 'index.html'), `${BASE}/en/delete-account`],
-    [join('en', 'delete-account', 'index.html'), `${BASE}/delete-account`],
+    [join('privacy', 'index.html'), `${BASE}/en/privacy/`],
+    [join('en', 'privacy', 'index.html'), `${BASE}/privacy/`],
+    [join('delete-account', 'index.html'), `${BASE}/en/delete-account/`],
+    [join('en', 'delete-account', 'index.html'), `${BASE}/delete-account/`],
   ])('%s → %s', (page, target) => {
     const { doc } = load(page);
     expect(doc.querySelector('header nav.lang-switch a')?.getAttribute('href')).toBe(target);

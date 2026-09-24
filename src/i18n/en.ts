@@ -53,6 +53,11 @@ export const en: Record<UiKey, string> = {
   'lang.es': 'Español',
   'lang.en': 'English',
 
+  'legal.updated': 'Last updated',
+
   'footer.contact': 'Contact',
+  'footer.privacy': 'Privacy',
+  'footer.deleteAccount': 'Delete account',
+  'footer.legalLabel': 'Legal',
   'footer.copyright': 'Ascension Project',
 };

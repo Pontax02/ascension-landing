@@ -94,6 +94,64 @@ a {
   color: var(--color-text-secondary);
 }
 
+/* Texto largo (páginas legales en Markdown) */
+.prose {
+  max-width: 44rem;
+  padding-block: var(--space-2xl) 0;
+}
+
+.prose__head {
+  display: grid;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.prose h1 {
+  font-size: var(--text-2xl);
+}
+
+.prose__updated {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.prose h2 {
+  margin: var(--space-2xl) 0 var(--space-xs);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+.prose p,
+.prose ul,
+.prose ol {
+  margin: 0 0 var(--space-sm);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.25em;
+}
+
+.prose li + li {
+  margin-top: var(--space-3xs);
+}
+
+.prose li::marker {
+  color: var(--color-gold-text);
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+.prose a {
+  color: var(--color-text);
+  text-decoration-color: var(--color-gold);
+  text-decoration-thickness: 2px;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

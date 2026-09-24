@@ -24,9 +24,14 @@ export function useTranslations(lang: string | undefined) {
   return (key: UiKey): string => dict[key];
 }
 
-/** Ruta interna en un idioma: el por defecto sin prefijo, el resto con /<lang>. Respeta `base`. */
+/**
+ * Ruta interna a una página en un idioma: el por defecto sin prefijo, el resto con /<lang>.
+ * Respeta `base` y termina en "/", que es la URL real en GitHub Pages (<ruta>/index.html);
+ * sin la barra, Pages responde con un 301. Anclas, query strings y ficheros se dejan tal cual.
+ */
 export function localePath(lang: Locale, path = '/', base: string = import.meta.env.BASE_URL): string {
-  const clean = path.replace(/^\/+/, '');
+  let clean = path.replace(/^\/+/, '');
+  if (clean && !/[#?]|\.[a-z0-9]+$/i.test(clean) && !clean.endsWith('/')) clean += '/';
   return lang === DEFAULT_LOCALE ? url(`/${clean}`, base) : url(`/${lang}/${clean}`, base);
 }
 
