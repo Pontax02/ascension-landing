@@ -155,7 +155,7 @@ describe('movimiento: hover', () => {
     expect(bad.map(where)).toEqual([]);
   });
 
-  it('la sombra de la tarjeta se refuerza animando opacidad, no box-shadow', () => {
+  it('el borde de la tarjeta se refuerza animando opacidad, no box-shadow', () => {
     const bad = decls.filter((d) => /^transition(-property)?$/.test(d.prop) && /box-shadow/.test(d.value));
     expect(bad.map(where)).toEqual([]);
     expect(hoverDecls(/\.pillar\b.*::?after/).some((d) => d.prop === 'opacity')).toBe(true);

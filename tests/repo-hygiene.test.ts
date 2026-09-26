@@ -9,7 +9,7 @@ import { describe, expect, it } from 'vitest';
 const ROOT = join(import.meta.dirname, '..');
 const tracked = execSync('git ls-files', { cwd: ROOT, encoding: 'utf8' }).trim().split('\n');
 
-const INTERNAL_FILES = [/^BRIEF\.md$/, /^privacidad\.txt$/, /^DEVELOPMENT\.md$/, /^AGENTS\.md$/, /^CLAUDE\.md$/, /^\.vscode\//, /^\.claude\//, /^\.private-patterns$/, /^\.agents\//, /^skills-lock\.json$/, /(^|\/)\.env/];
+const INTERNAL_FILES = [/^BRIEF\.md$/, /^privacidad\.txt$/, /^DEVELOPMENT\.md$/, /^AGENTS\.md$/, /^CLAUDE\.md$/, /^DESIGN\.md$/, /^\.vscode\//, /^\.claude\//, /^\.private-patterns$/, /^\.agents\//, /^skills-lock\.json$/, /(^|\/)\.env/];
 
 const PATTERNS_FILE = join(ROOT, '.private-patterns');
 const privatePatterns = existsSync(PATTERNS_FILE)
