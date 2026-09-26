@@ -172,3 +172,39 @@ describe('DESIGN.md: tipografía', () => {
 		expect(resolve(valueOf('body', 'font-size'))).toMatch(/^(1\.0625rem|17px)$/);
 	});
 });
+
+// DESIGN.md → Responsive Behavior: en móvil las secciones se aprietan, los tiles van a sangre
+// y todo lo que se toca mide al menos 44 × 44px.
+describe('DESIGN.md: móvil', () => {
+	// El minificador reescribe `min-width: X` como `width>=X` (sintaxis de rango): se aceptan ambas.
+	const inMinWidth = (d: Declaration) => inMedia(d, /min-width|width\s*>=?/);
+	const px = (v = '') => Number.parseFloat(resolveAll(v));
+
+	it('en móviles pequeños el padding de sección baja a 48px', () => {
+		const small = decls.filter((d) => d.prop === '--space-section' && inMedia(d, /(max-width:\s*|width\s*<=?\s*)(4[0-7]\d|419)px/));
+		expect(small.map((d) => d.value)).toContain('48px');
+	});
+
+	it('el CTA final va a sangre en móvil: el panel solo existe desde tablet', () => {
+		const panelBg = decls.filter((d) => /cta__panel/.test(selectorOf(d)) && /^background/.test(d.prop));
+		expect(panelBg.length).toBeGreaterThan(0);
+		expect(panelBg.filter((d) => !inMinWidth(d)).map((d) => d.value)).toEqual([]);
+	});
+
+	it('las tarjetas usan 24px de padding en móvil (32px desde tablet)', () => {
+		const pad = decls.filter((d) => /^\.pillar(\[[^\]]+\])?$/.test(selectorOf(d)) && d.prop === 'padding');
+		// Cada página (ES/EN) trae su copia del CSS: se comparan valores únicos.
+		expect([...new Set(pad.filter((d) => !inMinWidth(d)).map((d) => px(d.value)))]).toEqual([24]);
+		expect(pad.filter(inMinWidth).map((d) => px(d.value))).toContain(32);
+	});
+
+	it('el selector de idioma tiene un área táctil de 44px (capa invisible que amplía el enlace)', () => {
+		const hit = decls.filter((d) => /\.lang-switch\b[^,]*a[^,]*::?(before|after)/.test(selectorOf(d)));
+		expect(hit.some((d) => d.prop === 'min-height' && px(d.value) >= 44)).toBe(true);
+	});
+
+	it('los enlaces del pie miden 44px de alto en pantallas táctiles', () => {
+		const link = decls.filter((d) => /site-footer[^,]*\ba\b/.test(selectorOf(d)) && inMedia(d, /pointer:\s*coarse/));
+		expect(link.some((d) => d.prop === 'min-height' && px(d.value) >= 44)).toBe(true);
+	});
+});
