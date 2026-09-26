@@ -132,6 +132,24 @@ const year = new Date().getFullYear();
 		}
 	}
 
+	/* En pantallas táctiles cada enlace ocupa 44px de alto (DESIGN.md): la lista pierde el hueco
+	   entre enlaces porque ya lo da el propio enlace. */
+	@media (pointer: coarse) {
+		.site-footer__col ul {
+			gap: 0;
+		}
+
+		.site-footer__logo,
+		.site-footer__col a {
+			min-height: 44px;
+		}
+
+		.site-footer__col a {
+			display: inline-flex;
+			align-items: center;
+		}
+	}
+
 	.site-footer__copy {
 		margin-top: var(--space-2xl);
 		padding-top: var(--space-md);

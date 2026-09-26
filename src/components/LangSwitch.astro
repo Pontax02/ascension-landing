@@ -27,7 +27,7 @@ const t = useTranslations(current);
 </nav>
 
 <style>
-	ul {
+	.lang-switch ul {
 		display: flex;
 		gap: var(--space-3xs);
 		margin: 0;
@@ -35,8 +35,9 @@ const t = useTranslations(current);
 		list-style: none;
 	}
 
-	a,
-	span {
+	.lang-switch a,
+	.lang-switch span {
+		position: relative;
 		display: inline-block;
 		padding: var(--space-3xs) var(--space-xs);
 		border-radius: var(--radius-pill);
@@ -44,18 +45,28 @@ const t = useTranslations(current);
 		line-height: 1.4;
 	}
 
-	span {
+	.lang-switch span {
 		background: var(--color-text);
 		color: var(--color-bg);
 		font-weight: 600;
 	}
 
-	a {
+	.lang-switch a {
 		color: var(--color-text);
 		text-decoration: none;
 	}
 
-	a:hover {
+	/* La píldora se ve de 28px, pero el dedo necesita 44 (DESIGN.md): una capa invisible amplía
+	   el área táctil en vertical sin cambiar el diseño. */
+	.lang-switch a::before {
+		content: '';
+		position: absolute;
+		inset: 50% 0 auto;
+		min-height: 44px;
+		translate: 0 -50%;
+	}
+
+	.lang-switch a:hover {
 		background: var(--color-border);
 	}
 </style>

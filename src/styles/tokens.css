@@ -91,3 +91,10 @@
   --lift: -4px;
   --duration-enter: 600ms;
 }
+
+/* DESIGN.md (Responsive): en móviles pequeños las secciones se aprietan de 64px a 48px. */
+@media (max-width: 419px) {
+  :root {
+    --space-section: 48px;
+  }
+}

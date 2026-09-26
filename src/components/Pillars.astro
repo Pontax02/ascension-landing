@@ -132,7 +132,7 @@ const friends = [
 		grid-template-rows: auto auto;
 		gap: var(--space-lg);
 		align-content: start;
-		padding: var(--space-xl);
+		padding: var(--space-lg);
 		position: relative;
 		border-radius: var(--radius-card);
 		background: var(--color-bg);
@@ -362,6 +362,10 @@ const friends = [
 	@media (min-width: 768px) {
 		.bento {
 			grid-template-columns: 1.25fr 1fr;
+		}
+
+		.pillar {
+			padding: var(--space-xl);
 		}
 
 		/* La destacada ocupa dos filas: su miniatura crece para llenar la altura. */

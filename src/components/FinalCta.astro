@@ -1,6 +1,7 @@
 ---
 // Cierre en panel partido: texto y CTA a la izquierda, símbolo con órbitas a la derecha
-// (el mismo motivo del hero, para cerrar el círculo).
+// (el mismo motivo del hero, para cerrar el círculo). En móvil no hay panel: la sección va a
+// sangre sobre blanco, entre las capturas y el pie (DESIGN.md: el cambio de color separa).
 import { Image } from 'astro:assets';
 import mark from '../assets/logo-mark.png';
 import { useTranslations } from '../i18n';
@@ -38,10 +39,6 @@ const t = useTranslations(Astro.currentLocale);
 		display: grid;
 		gap: var(--space-xl);
 		align-items: center;
-		padding: var(--space-2xl) var(--space-lg);
-		border-radius: var(--radius-card);
-		background: var(--color-surface);
-		overflow: hidden;
 	}
 
 	.cta__copy {
@@ -66,7 +63,7 @@ const t = useTranslations(Astro.currentLocale);
 		display: grid;
 		place-items: center;
 		justify-self: center;
-		width: min(260px, 70%);
+		width: min(200px, 60%);
 		aspect-ratio: 1;
 	}
 
@@ -96,6 +93,13 @@ const t = useTranslations(Astro.currentLocale);
 		.cta__panel {
 			grid-template-columns: 1.4fr 1fr;
 			padding: var(--space-3xl) clamp(var(--space-xl), 5vw, 72px);
+			border-radius: var(--radius-card);
+			background: var(--color-surface);
+			overflow: hidden;
+		}
+
+		.cta__art {
+			width: min(260px, 70%);
 		}
 	}
 </style>
