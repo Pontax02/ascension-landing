@@ -10,6 +10,9 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
+  /* El header fijo (56px) no tapa los anclajes ni el elemento enfocado con el teclado. */
+  scroll-padding-top: 72px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -22,7 +25,15 @@ body {
   font-family: var(--font-body);
   font-size: var(--text-base);
   line-height: var(--leading-body);
+  font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Sin el retardo de doble toque en lo que se pulsa. */
+a,
+button,
+summary {
+  touch-action: manipulation;
 }
 
 main {
@@ -34,24 +45,28 @@ h2,
 h3 {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 700;
-  line-height: var(--leading-tight);
+  font-weight: 600;
   text-wrap: balance;
 }
 
+/* Jerarquía por tamaño + peso + interlineado + tracking como un conjunto (guía de Apple). */
 h1 {
   font-size: var(--text-display);
-  letter-spacing: -0.02em;
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
 }
 
 h2 {
   font-size: var(--text-2xl);
-  letter-spacing: -0.01em;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-heading);
 }
 
 h3 {
   font-size: var(--text-xl);
   font-weight: 600;
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-title);
 }
 
 p {
@@ -85,9 +100,9 @@ a {
 
 .section-head {
   display: grid;
-  gap: var(--space-xs);
+  gap: var(--space-sm);
   max-width: 40rem;
-  margin: 0 auto var(--space-xl);
+  margin: 0 auto var(--space-2xl);
   text-align: center;
 }
 
@@ -279,6 +294,17 @@ a:hover {
 
 .pressable:active {
   transform: scale(0.97);
+}
+
+/* "Más contraste": grises más oscuros y bordes definidos en toda la página. */
+@media (prefers-contrast: more) {
+  :root {
+    --color-text-secondary: #48484a;
+    --color-border: #aeaeb2;
+    --color-divider: #8e8e93;
+    --color-text-secondary-on-dark: #d1d1d6;
+    --color-border-on-dark: #636366;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

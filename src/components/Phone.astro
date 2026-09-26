@@ -32,10 +32,10 @@ const { image, alt, width = 280, eager = false, sizes } = Astro.props;
 		padding: 3.2%;
 		border-radius: calc(var(--phone-w) * 0.14);
 		background: var(--color-text);
+		/* La única sombra del sistema (DESIGN.md): el producto apoyado en la página. */
 		box-shadow:
 			inset 0 0 0 2px #3a3a3e,
-			0 24px 48px rgb(0 0 0 / 0.18),
-			0 4px 12px rgb(0 0 0 / 0.08);
+			var(--shadow-product);
 	}
 
 	.phone :global(img) {

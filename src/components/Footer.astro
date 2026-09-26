@@ -21,7 +21,7 @@ const year = new Date().getFullYear();
 			<div class="site-footer__brand">
 				<a class="site-footer__logo" href={localePath(lang, '/')} aria-label={t('a11y.home')}>
 					<Image src={mark} alt="" width={28} densities={[1, 2]} loading="lazy" />
-					<span>{t('site.name')}</span>
+					<span translate="no">{t('site.name')}</span>
 				</a>
 				<p>{t('footer.tagline')} <span lang="en">{t('site.tagline')}.</span></p>
 			</div>
@@ -60,7 +60,6 @@ const year = new Date().getFullYear();
 		margin-top: var(--space-section);
 		padding-block: var(--space-2xl) var(--space-lg);
 		background: var(--color-surface);
-		border-top: 1px solid var(--color-border);
 		color: var(--color-text-secondary);
 		font-size: var(--text-sm);
 	}

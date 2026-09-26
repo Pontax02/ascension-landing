@@ -49,16 +49,6 @@ const last = AVATAR_STAGES.length - 1;
 		overflow: hidden;
 	}
 
-	/* Luz dorada muy tenue que sube desde la etapa final. */
-	.evolution::before {
-		content: '';
-		position: absolute;
-		inset: auto -20% -40% 20%;
-		height: 80%;
-		background: radial-gradient(closest-side, rgb(201 168 76 / 0.16), transparent 75%);
-		pointer-events: none;
-	}
-
 	.evolution > * {
 		position: relative;
 	}
@@ -76,6 +66,9 @@ const last = AVATAR_STAGES.length - 1;
 		scroll-snap-type: x mandatory;
 		scroll-padding-inline: var(--gutter);
 		overscroll-behavior-x: contain;
+		/* Barra de scroll fina y oscura: la clara del sistema rompe la sección oscura. */
+		scrollbar-width: thin;
+		scrollbar-color: rgb(255 255 255 / 0.22) transparent;
 	}
 
 	.stages:focus-visible {
@@ -89,11 +82,10 @@ const last = AVATAR_STAGES.length - 1;
 		gap: var(--space-2xs);
 		padding: var(--space-lg) var(--space-sm);
 		border: 1px solid transparent;
-		border-radius: var(--radius-xl);
+		border-radius: var(--radius-card);
 		background: var(--color-bg);
 		color: var(--color-text);
 		text-align: center;
-		box-shadow: 0 24px 48px -24px rgb(0 0 0 / 0.5);
 		scroll-snap-align: start;
 		transition:
 			translate var(--duration-hover) var(--ease-out),
@@ -108,7 +100,7 @@ const last = AVATAR_STAGES.length - 1;
 		right: calc(-1 * var(--space-md) - 1px);
 		width: var(--space-md);
 		height: 2px;
-		background: linear-gradient(90deg, var(--color-border-on-dark), var(--color-gold));
+		background: var(--color-border-on-dark);
 	}
 
 	.stage__art {
@@ -166,18 +158,17 @@ const last = AVATAR_STAGES.length - 1;
 
 	.stage--final {
 		border-color: var(--color-gold);
-		background: linear-gradient(180deg, var(--color-bg) 55%, var(--color-gold-light));
+		background: var(--color-gold-light);
 	}
 
-	/* El brillo va en una capa aparte para animar solo su opacidad (GPU), no el box-shadow. */
+	/* Anillo dorado (sin desenfoque: DESIGN.md no admite brillos) en capa aparte para animar solo
+	   su opacidad. */
 	.stage--final::before {
 		content: '';
 		position: absolute;
 		inset: -1px;
 		border-radius: inherit;
-		box-shadow:
-			0 0 0 1px rgb(201 168 76 / 0.6),
-			0 0 48px rgb(201 168 76 / 0.35);
+		box-shadow: 0 0 0 4px rgb(201 168 76 / 0.35);
 		pointer-events: none;
 	}
 

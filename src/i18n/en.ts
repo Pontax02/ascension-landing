@@ -9,7 +9,7 @@ export const en: Record<UiKey, string> = {
   'site.title': 'Ascension — Habit tracker with RPG progression',
   'og.imageAlt': 'Ascension, Time to ascend: the five avatar evolution stages, from level 1 to 36+.',
   'notFound.title': 'Page not found',
-  'notFound.body': "This page doesn't exist or has been moved.",
+  'notFound.body': 'This page doesn’t exist or has been moved.',
   'notFound.home': 'Back to home',
   'a11y.skipToContent': 'Skip to content',
   'a11y.home': 'Ascension, go to home page',

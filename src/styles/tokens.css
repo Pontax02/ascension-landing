@@ -31,14 +31,21 @@
 
   /* Escala fluida: móvil (375px) → escritorio (1280px) */
   --text-sm: 0.875rem;
-  --text-base: 1rem;
+  --text-base: 1.0625rem; /* 17px: ritmo de lectura, no de escaneo */
   --text-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
   --text-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
   --text-2xl: clamp(1.625rem, 1.3rem + 1.4vw, 2.5rem);
   --text-display: clamp(2.5rem, 1.7rem + 3.4vw, 4.5rem);
 
-  --leading-tight: 1.1;
+  /* Interlineado y tracking dependen del tamaño (guía de Apple): cuanto más grande el texto,
+     más cerradas las líneas y las letras; el texto pequeño respira. */
+  --leading-display: 1.04;
+  --leading-tight: 1.12;
+  --leading-snug: 1.25;
   --leading-body: 1.5;
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.022em;
+  --tracking-title: -0.012em;
   --tracking-wordmark: 0.25em;
 
   /* ── Espaciado ───────────────────────────────────────── */
@@ -56,8 +63,7 @@
   /* ── Forma ───────────────────────────────────────────── */
   --radius-sm: 8px;
   --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
+  --radius-card: 18px; /* tarjetas (DESIGN.md: radio de utilidad) */
   --radius-pill: 999px;
 
   /* ── Layout ──────────────────────────────────────────── */
@@ -65,16 +71,11 @@
   --gutter: var(--space-md);
 
   /* ── Efectos ─────────────────────────────────────────── */
-  /* Sombras tintadas con el tono del texto (no negro puro) + borde interior de 1px */
-  --shadow-card:
-    inset 0 0 0 1px rgb(29 29 31 / 0.05),
-    0 1px 2px rgb(29 29 31 / 0.04),
-    0 18px 40px -18px rgb(29 29 31 / 0.14);
-  --shadow-float: 0 1px 2px rgb(29 29 31 / 0.06), 0 12px 28px -10px rgb(29 29 31 / 0.22);
-  /* Sombra extra de una tarjeta elevada en hover. Va en un ::after y se anima su opacidad. */
-  --shadow-lift: 0 2px 6px rgb(29 29 31 / 0.05), 0 32px 56px -24px rgb(29 29 31 / 0.24);
-  --radius-2xl: 32px;
-  --glow-gold: 0 0 0 1px rgb(201 168 76 / 0.35), 0 8px 32px rgb(201 168 76 / 0.25);
+  /* DESIGN.md: la jerarquía la dan el cambio de superficie y las líneas finas, no las sombras.
+     Hay una sola sombra en todo el sistema, y es para el "producto" (el móvil) apoyado en la página. */
+  --hairline: rgb(0 0 0 / 0.08);
+  --shadow-product: 3px 5px 30px rgb(0 0 0 / 0.22);
+
   /* ── Movimiento ──────────────────────────────────────── */
   /* ease-out fuerte para entradas y respuesta; ease-in-out para lo que se mueve en pantalla.
      Nunca ease-in: empieza lento justo cuando el usuario está mirando. */

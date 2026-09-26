@@ -95,7 +95,7 @@ const friends = [
 							))
 						}
 					</ul>
-					<span class="code"><span>{t('pillars.inviteCode')}</span><b>7KQ4MX2P</b></span>
+					<span class="code"><span>{t('pillars.inviteCode')}</span><b translate="no">7KQ4MX2P</b></span>
 				</div>
 				<div class="pillar__text">
 					<span class="pillar__icon">
@@ -134,20 +134,20 @@ const friends = [
 		align-content: start;
 		padding: var(--space-xl);
 		position: relative;
-		border-radius: var(--radius-2xl);
+		border-radius: var(--radius-card);
 		background: var(--color-bg);
-		box-shadow: var(--shadow-card);
+		box-shadow: inset 0 0 0 1px var(--hairline);
 		transition: translate var(--duration-hover) var(--ease-out);
 	}
 
-	/* Sombra de elevación en su propia capa: en hover solo cambia su opacidad. Una sombra
-	   exterior no pinta dentro de la caja, así que no tapa el contenido. */
+	/* Borde más marcado en hover, en su propia capa: solo cambia su opacidad. Sin sombra de
+	   elevación (DESIGN.md: las tarjetas no llevan sombra). */
 	.pillar::after {
 		content: '';
 		position: absolute;
 		inset: 0;
 		border-radius: inherit;
-		box-shadow: var(--shadow-lift);
+		box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.16);
 		opacity: 0;
 		pointer-events: none;
 		transition: opacity var(--duration-hover) ease;
@@ -191,10 +191,8 @@ const friends = [
 		display: grid;
 		place-items: center;
 		min-height: 150px;
-		border-radius: var(--radius-lg);
-		background:
-			radial-gradient(closest-side, rgb(201 168 76 / 0.14), transparent 80%),
-			var(--color-surface);
+		border-radius: var(--radius-md);
+		background: var(--color-surface);
 	}
 
 	.pillar__visual--tree {
@@ -275,7 +273,7 @@ const friends = [
 		display: block;
 		height: 100%;
 		border-radius: inherit;
-		background: linear-gradient(90deg, var(--color-gold-light), var(--color-gold));
+		background: var(--color-gold);
 		transform-origin: left;
 	}
 
@@ -377,10 +375,10 @@ const friends = [
 		}
 	}
 
-	/* ── Hover (solo con ratón): la tarjeta sube 4px, gana sombra y el icono "saluda".
+	/* ── Hover (solo con ratón): la tarjeta sube 4px, se marca su borde y el icono "saluda".
 	   Con `translate`/`rotate`/`scale` sueltos, no con `transform`: el revelado al hacer scroll
 	   ya anima `transform` con fill: both y lo pisaría. Sin movimiento con "reducir movimiento";
-	   la sombra (no mueve nada) se mantiene. ── */
+	   el borde (no mueve nada) se mantiene. ── */
 	@media (hover: hover) and (pointer: fine) {
 		.pillar:hover::after {
 			opacity: 1;

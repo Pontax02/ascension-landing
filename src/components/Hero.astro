@@ -68,17 +68,6 @@ const facts = [t('hero.facts.noAds'), t('hero.facts.noSubs'), t('hero.facts.lang
 		overflow: hidden;
 	}
 
-	/* Luz cálida de fondo, muy tenue: da profundidad sin competir con el contenido. */
-	.hero::before {
-		content: '';
-		position: absolute;
-		inset: -20% -10% auto auto;
-		width: min(900px, 120vw);
-		aspect-ratio: 1;
-		background: radial-gradient(closest-side, rgb(201 168 76 / 0.16), transparent 70%);
-		pointer-events: none;
-	}
-
 	.hero__inner {
 		position: relative;
 		display: grid;
@@ -148,7 +137,6 @@ const facts = [t('hero.facts.noAds'), t('hero.facts.noSubs'), t('hero.facts.lang
 		inset: 0;
 		display: grid;
 		place-items: center;
-		background: radial-gradient(closest-side, rgb(201 168 76 / 0.28), transparent 72%);
 	}
 
 	.hero__orbits {
@@ -183,9 +171,11 @@ const facts = [t('hero.facts.noAds'), t('hero.facts.noSubs'), t('hero.facts.lang
 		gap: var(--space-2xs);
 		padding: var(--space-2xs) var(--space-sm) var(--space-2xs) var(--space-2xs);
 		border-radius: var(--radius-pill);
-		background: rgb(255 255 255 / 0.92);
-		backdrop-filter: blur(12px);
-		box-shadow: var(--shadow-float), inset 0 0 0 1px rgb(29 29 31 / 0.06);
+		background: rgb(255 255 255 / 0.82);
+		-webkit-backdrop-filter: blur(16px) saturate(180%);
+		backdrop-filter: blur(16px) saturate(180%);
+		/* Sin sombra (DESIGN.md): el material y una línea fina bastan para separarlo del móvil. */
+		box-shadow: inset 0 0 0 1px var(--hairline);
 		font-family: var(--font-display);
 		font-weight: 600;
 		font-size: 0.8125rem;
@@ -264,7 +254,7 @@ const facts = [t('hero.facts.noAds'), t('hero.facts.noSubs'), t('hero.facts.lang
 		width: 68%;
 		height: 100%;
 		border-radius: inherit;
-		background: linear-gradient(90deg, var(--color-gold-light), var(--color-gold));
+		background: var(--color-gold);
 		transform-origin: left;
 	}
 
@@ -286,13 +276,6 @@ const facts = [t('hero.facts.noAds'), t('hero.facts.noSubs'), t('hero.facts.lang
 		}
 	}
 
-	/* Flotación mínima (4px) y lenta: el mockup "respira" sin distraer. Solo transform. */
-	@keyframes float {
-		50% {
-			transform: translateY(-4px);
-		}
-	}
-
 	@media (prefers-reduced-motion: no-preference) {
 		.xp-chip__bar span {
 			animation: xp-fill 1.2s var(--ease-out) 700ms both;
@@ -302,16 +285,15 @@ const facts = [t('hero.facts.noAds'), t('hero.facts.noSubs'), t('hero.facts.lang
 			animation: level-pop 360ms var(--ease-out) 1.7s both;
 		}
 
-		.float-chip--habit {
-			animation:
-				rise-in var(--duration-enter) var(--ease-out) calc(var(--i) * 60ms) both,
-				float 6s ease-in-out 1.2s infinite;
-		}
+	}
 
-		.float-chip--streak {
-			animation:
-				rise-in var(--duration-enter) var(--ease-out) calc(var(--i) * 60ms) both,
-				float 7s ease-in-out 1.6s infinite;
+	/* "Reducir transparencia": chips opacos, sin desenfoque. */
+	@media (prefers-reduced-transparency: reduce) {
+		.float-chip,
+		.xp-chip {
+			background: var(--color-bg);
+			-webkit-backdrop-filter: none;
+			backdrop-filter: none;
 		}
 	}
 
